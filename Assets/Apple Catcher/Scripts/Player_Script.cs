@@ -15,41 +15,25 @@ public class Player_Script : MonoBehaviour
     protected AudioSource ref_audioSource;
     protected Animator ref_animator;
 
+    private float speed = 10;
+    [SerializeField]
+    private float speedBoostTime = 0f;
+
     //---------------------------------------------------------------------------------
     // METHODS
     //---------------------------------------------------------------------------------
-    // Start is called before the first frame update
     void Start()
     {
         ref_audioSource = GetComponent<AudioSource>();
         ref_animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         //Manage movement speed and animations
-        float newSpeed = 0;
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            newSpeed = -10f;
-            ref_animator.SetBool("isForwards", false);
-        }
-        else if ( Input.GetKey(KeyCode.RightArrow) )
-        {
-            newSpeed = 10f;
-            ref_animator.SetBool("isForwards", true);
-        }
+        shifting();
         
-        //Inform animator : Are we moving?
-        ref_animator.SetBool("isMoving", newSpeed != 0);
-
-
-        //Move with the speed found
-        transform.Translate(newSpeed * Time.deltaTime, 0, 0);
-
         //We stop time if the spaceBar is pushed down
         if ( Input.GetKeyDown(KeyCode.Space) )
         {
@@ -65,6 +49,26 @@ public class Player_Script : MonoBehaviour
         {
             Application.Quit();
         }
+
+        //if sped up before, slow down 5s later
+        if (speedBoostTime != 0 && (Time.time - speedBoostTime) > 5f ) {
+            speed = 10;
+            speedBoostTime = 0;
+        }
+    }
+
+    void shifting()
+    {
+
+        //get moving direction
+        int inputX = (int)Input.GetAxisRaw("Horizontal");
+        
+        //Inform animator : Are we moving?
+        ref_animator.SetBool("isMoving", inputX != 0);
+
+        //Move with the speed found
+        transform.Translate(speed * inputX * Time.deltaTime, 0, 0);
+
     }
 
     void OnCollisionEnter2D( Collision2D col )
@@ -76,16 +80,26 @@ public class Player_Script : MonoBehaviour
         }
         else if (col.gameObject.CompareTag("RottenApple"))
         {
-            score--;
+            score-=2;
         }
         else if (col.gameObject.CompareTag("Banana"))
         {
             //speed up during 5s
+            speed = 15;
+            speedBoostTime = Time.time;
+        }
+        else if (col.gameObject.CompareTag("Bomb"))
+
+        { 
+            #if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                            Application.Quit();
+            #endif
         }
         else //golden apple
         {
             score += 5;
-            //speed up
         }
 
         displayed_text.SetText("Score : " + score);
