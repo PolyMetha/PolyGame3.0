@@ -8,11 +8,11 @@ using TMPro;
 public class Ball : MonoBehaviour
 {
     bool isSpawning = true;
-    public float timer = 2f;
+    private float timer = 2f;
     [SerializeField] TextMeshPro textScore;
     [SerializeField] Canvas gameOverCanvas;
 
-    public int life = 4;
+    private int life = 3;
     public int score;
     public int topScore;
     public TextMeshProUGUI textTopScore;
@@ -25,11 +25,9 @@ public class Ball : MonoBehaviour
 
     private float velocityCST;
 
-
     void Start()
     {
-        //listLife = new List<GameObject>(life);
-        listLife = new GameObject[5];
+        listLife = new GameObject[4];
         path = Application.dataPath + @"/TopScoreBrick.txt";
         string f = File.ReadAllText(path);
         
@@ -41,12 +39,18 @@ public class Ball : MonoBehaviour
         {
             GameObject newBall = Instantiate(ballPF);
             newBall.transform.position = new Vector3(initPos.x - i * 0.7f, initPos.y, -3);
-            //listLife.Add(newBall);
             listLife[i] = newBall;
         }
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = Vector3.zero;
+        //transform.position = new Vector3(transform.position.x, -1f, 0f);
+        transform.position = new Vector3(0f, 0f, 0f);
+        timer = 2f;
+        isSpawning = true;
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         
@@ -55,13 +59,14 @@ public class Ball : MonoBehaviour
             RestartBall();
         }
 
-        if(transform.position.y <= -5f && life >= 0) //La balle tombe
+        if(transform.position.y <= -5f && life > 0) //La balle tombe
         {
             RemoveLife();
             ReSpawnBall();
         }
-        else if (life < 0) //GameOver
+        else if (life <= 0) //GameOver
         {
+            isSpawning = false;
             gameOverCanvas.enabled = true;
             TopScore();        
         }
@@ -98,7 +103,6 @@ public class Ball : MonoBehaviour
         if(timer <= 0f)
         {
             isSpawning = false;
-                
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.velocity = new Vector3(0f, -8f - spawn.lineNumber, 0f);
             velocityCST = rb.velocity.magnitude;
@@ -108,15 +112,19 @@ public class Ball : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector3.zero;
-        transform.position = new Vector3(transform.position.x,-1f, 0f);
+        //transform.position = new Vector3(transform.position.x, -1f, 0f);
+        transform.position = new Vector3(0f, 0f, 0f);
         timer = 2f;
         isSpawning = true;
     }
     public void RemoveLife()
     {
         life--;
-        Destroy(listLife[life]);
-        listLife[life] = null;
+        if (life >= 0)
+        {
+            Destroy(listLife[life]);
+            listLife[life] = null;
+        }
     }
     public void AddLife()
     {
@@ -140,5 +148,7 @@ public class Ball : MonoBehaviour
             
         }
         textTopScore.SetText("TopScore : "+topScore);
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sortingOrder = -1;
     }
 }

@@ -19,9 +19,7 @@ public class SpawnerBrickBreaker : MonoBehaviour
     public int colonne = 7;   //Nombre de colonnes/2
     public int lineNumber = 0;
     int createdBricks = 0;
-    
-    
-    
+       
     public float proba_bricks = 0.8f;
 
     // Start is called before the first frame update
@@ -31,7 +29,7 @@ public class SpawnerBrickBreaker : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(ball.score >= createdBricks * 50)
         {

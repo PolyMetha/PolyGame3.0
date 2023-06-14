@@ -2255,10 +2255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1679f5d1370d5984f9a6b4dcf2f0a9dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 2
   textScore: {fileID: 128506121}
   gameOverCanvas: {fileID: 848036283}
-  life: 4
   score: 0
   topScore: 0
   textTopScore: {fileID: 1982838242}
