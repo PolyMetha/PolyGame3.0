@@ -195,7 +195,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -292,7 +292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.8, y: 4.3921}
+  m_AnchoredPosition: {x: 6.17, y: 4.3921}
   m_SizeDelta: {x: 4.0133, y: 0.6642}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &519420028
@@ -476,8 +476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb597078a9954f77b67009664101bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRemaining: 10
-  timerIsRunning: 0
   life: 4
   score: 0
   topScore: 0
