@@ -13,6 +13,7 @@ public class SpawnerScript : MonoBehaviour
     public GameObject banana_pf;
     public GameObject rottenApple_pf;
     public GameObject goldenApple_pf;
+    public GameObject bomb_pf;
 
     protected float timer = 3f;
     protected AudioSource ref_audioSource;
@@ -63,6 +64,12 @@ public class SpawnerScript : MonoBehaviour
                 GameObject newBanana = Instantiate(banana_pf);
                 newBanana.transform.position = new Vector3(randomX, 6.0f, 0);
             }
+            else if (randomObject - apple_pf.GetComponent<ObjectFalling>().spawnProba - rottenApple_pf.GetComponent<ObjectFalling>().spawnProba - banana_pf.GetComponent<ObjectFalling>().spawnProba - bomb_pf.GetComponent<ObjectFalling>().spawnProba < 0)
+            {
+                //spawn banana
+                GameObject newBomb = Instantiate(bomb_pf);
+                bomb_pf.transform.position = new Vector3(randomX, 6.0f, 0);
+            }
             else
             {
                 //spawn golden apple
@@ -70,7 +77,7 @@ public class SpawnerScript : MonoBehaviour
                 newGoldenApple.transform.position = new Vector3(randomX, 6.0f, 0);
             }
 
-            timer = 0.5f + Random.value*1f ;
+            timer = 0.5f + Random.value*1f;
         }
         
     }

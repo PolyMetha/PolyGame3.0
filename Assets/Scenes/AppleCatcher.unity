@@ -702,6 +702,7 @@ MonoBehaviour:
   banana_pf: {fileID: 6076781227970490594, guid: 93e8aa6507959364c8f5c8e2d19fbc80, type: 3}
   rottenApple_pf: {fileID: 1576308458038899845, guid: 3a514558d4ab4a1438b1cbefda3f122e, type: 3}
   goldenApple_pf: {fileID: 2843200809450976186, guid: 58302e27e9486da4d957c671accbef49, type: 3}
+  bomb_pf: {fileID: 8823402156218285546, guid: 3715458a3dbb8ad4aa10e1a941a6650b, type: 3}
 --- !u!4 &1312995413
 Transform:
   m_ObjectHideFlags: 0
@@ -733,7 +734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1348437038
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1034,6 +1035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayed_text: {fileID: 1248441415}
+  speedBoostTime: 0
 --- !u!82 &1572129571
 AudioSource:
   m_ObjectHideFlags: 0

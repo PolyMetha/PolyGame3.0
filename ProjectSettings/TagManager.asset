@@ -9,6 +9,7 @@ TagManager:
   - RottenApple
   - GoldenApple
   - Banana
+  - Bomb
   layers:
   - Default
   - TransparentFX
