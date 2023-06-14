@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f13d801a3cebc1f41b9bde9c585a83af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnProba: 0.7
+  spawnProba: 0.65

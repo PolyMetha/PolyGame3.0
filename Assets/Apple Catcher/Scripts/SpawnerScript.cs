@@ -8,14 +8,14 @@ public class SpawnerScript : MonoBehaviour
     public SpriteRenderer fader_renderer;
 
     public GameObject apple_pf;
-
-    //changes
     public GameObject banana_pf;
     public GameObject rottenApple_pf;
     public GameObject goldenApple_pf;
     public GameObject bomb_pf;
 
-    protected float timer = 3f;
+    public GameMaster gameMaster;
+
+    protected float spawnTime = 3f;
     protected AudioSource ref_audioSource;
     protected float current_alpha = 1;
 
@@ -37,9 +37,11 @@ public class SpawnerScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        timer -= Time.deltaTime;
+        if (!gameMaster.timerIsRunning) { return; }
 
-        if ( timer <= 0)
+        spawnTime -= Time.deltaTime;
+
+        if ( spawnTime <= 0)
         {
             float randomX = Random.value * 17f - 8.5f;
 
@@ -77,7 +79,7 @@ public class SpawnerScript : MonoBehaviour
                 newGoldenApple.transform.position = new Vector3(randomX, 6.0f, 0);
             }
 
-            timer = 0.5f + Random.value*1f;
+            spawnTime = 0.5f + Random.value*1f;
         }
         
     }

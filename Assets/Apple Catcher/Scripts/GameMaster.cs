@@ -6,11 +6,12 @@ using UnityEngine;
 public class GameMaster : MonoBehaviour
 {
     private float timeRemaining = 90;
-    private bool timerIsRunning = false;
+    public bool timerIsRunning = false;
 
-    public int life = 4;
-    public int score;
-    public int topScore;
+    public GameObject noMoreTimeUI;
+
+    public Player_Script player;
+
     [SerializeField] TextMeshPro textTimeLeft;
 
     private float minutes = 0;
@@ -39,6 +40,8 @@ public class GameMaster : MonoBehaviour
                 timeRemaining = 0;
                 timerIsRunning = false;
                 textTimeLeft.SetText("00:00 Left");
+                noMoreTimeUI.SetActive(true);
+                noMoreTimeUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Score : " + player.score;
             }
         }
     }

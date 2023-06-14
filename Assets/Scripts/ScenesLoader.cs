@@ -5,17 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ScenesLoader : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public IEnumerator LoadBirdCoroutine()
     {
@@ -57,6 +46,20 @@ public class ScenesLoader : MonoBehaviour
     public void LoadBrick()
     {
         StartCoroutine(LoadBrickCoroutine());
+    }
+
+    public void LoadMenu()
+    {
+        StartCoroutine(LoadMenuCoroutine());
+    }
+
+    public IEnumerator LoadMenuCoroutine()
+    {
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
+        while (!asyncload.isDone)
+        {
+            yield return null;
+        }
     }
 
     public void AppQuit()

@@ -10,8 +10,10 @@ public class Player_Script : MonoBehaviour
     // ATTRIBUTES
     //---------------------------------------------------------------------------------
     public TextMeshPro displayed_text;
+    public GameMaster gameMaster;
+    public GameObject gameOverUI;
 
-    protected int score = 0;
+    public int score = 0;
     protected AudioSource ref_audioSource;
     protected Animator ref_animator;
 
@@ -30,6 +32,7 @@ public class Player_Script : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!gameMaster.timerIsRunning) { return; }
 
         //Manage movement speed and animations
         shifting();
@@ -54,6 +57,7 @@ public class Player_Script : MonoBehaviour
         if (speedBoostTime != 0 && (Time.time - speedBoostTime) > 5f ) {
             speed = 10;
             speedBoostTime = 0;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
         }
     }
 
@@ -87,15 +91,14 @@ public class Player_Script : MonoBehaviour
             //speed up during 5s
             speed = 15;
             speedBoostTime = Time.time;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 239, 0);
         }
         else if (col.gameObject.CompareTag("Bomb"))
 
-        { 
-            #if UNITY_EDITOR
-                        UnityEditor.EditorApplication.isPlaying = false;
-            #else
-                            Application.Quit();
-            #endif
+        {
+            gameOverUI.SetActive(true);
+            gameOverUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Score : " + score;
+            gameMaster.timerIsRunning = false;
         }
         else //golden apple
         {
