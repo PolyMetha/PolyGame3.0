@@ -30,7 +30,7 @@ public class Ball : MonoBehaviour
     {
         //listLife = new List<GameObject>(life);
         listLife = new GameObject[5];
-        path = Application.dataPath + @"\TopScoreBrick.txt";
+        path = Application.dataPath + @"/TopScoreBrick.txt";
         string f = File.ReadAllText(path);
         
         topScore = int.Parse(f);
@@ -63,11 +63,7 @@ public class Ball : MonoBehaviour
         else if (life < 0) //GameOver
         {
             gameOverCanvas.enabled = true;
-            print("endgame");
-            
-            TopScore();
-            
-            
+            TopScore();        
         }
 
         //Rectification trajectoire et vitesse
@@ -124,15 +120,12 @@ public class Ball : MonoBehaviour
     }
     public void AddLife()
     {
-        
         GameObject newBall = Instantiate(ballPF);
-
+      
         newBall.transform.position = listLife[life - 1].transform.position;
         newBall.transform.Translate(-0.7f, 0, 0);
-        //listLife.Add(newBall);
         listLife[life] = newBall;
         life++;
-
     }
 
     public void TopScore()

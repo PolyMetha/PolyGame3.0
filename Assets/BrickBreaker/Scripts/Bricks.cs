@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-
 
 public class Bricks : MonoBehaviour
 {
     public int hitCount;
-
     public GameObject brickPF;
 
     //public spawner spawn;
