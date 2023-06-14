@@ -94,7 +94,6 @@ public class Player_Script : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 239, 0);
         }
         else if (col.gameObject.CompareTag("Bomb"))
-
         {
             gameOverUI.SetActive(true);
             gameOverUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Score : " + score;
