@@ -476,6 +476,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb597078a9954f77b67009664101bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeRemaining: 10
+  timerIsRunning: 0
+  life: 4
+  score: 0
+  topScore: 0
+  textTimeLeft: {fileID: 215165041}
 --- !u!4 &799439878
 Transform:
   m_ObjectHideFlags: 0

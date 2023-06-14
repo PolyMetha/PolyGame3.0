@@ -126,7 +126,6 @@ public class Ball : MonoBehaviour
     {
         
         GameObject newBall = Instantiate(ballPF);
-        
 
         newBall.transform.position = listLife[life - 1].transform.position;
         newBall.transform.Translate(-0.7f, 0, 0);
