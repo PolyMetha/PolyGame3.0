@@ -67,10 +67,27 @@ public class Player_Script : MonoBehaviour
         }
     }
 
-    //React to a collision (collision start)
     void OnCollisionEnter2D( Collision2D col )
     {
-        score++;
+        //identify the object that fell
+        if (col.gameObject.CompareTag("Apple"))
+        {
+            score++;
+        }
+        else if (col.gameObject.CompareTag("RottenApple"))
+        {
+            score--;
+        }
+        else if (col.gameObject.CompareTag("Banana"))
+        {
+            //speed up during 5s
+        }
+        else //golden apple
+        {
+            score += 5;
+            //speed up
+        }
+
         displayed_text.SetText("Score : " + score);
 
         ref_audioSource.Play();

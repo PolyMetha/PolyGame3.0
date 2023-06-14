@@ -7,7 +7,13 @@ public class SpawnerScript : MonoBehaviour
     public AudioClip ref_audioClip;
     public SpriteRenderer fader_renderer;
 
-    public GameObject apple_prefab;
+    public GameObject apple_pf;
+
+    //changes
+    public GameObject banana_pf;
+    public GameObject rottenApple_pf;
+    public GameObject goldenApple_pf;
+
     protected float timer = 3f;
     protected AudioSource ref_audioSource;
     protected float current_alpha = 1;
@@ -15,7 +21,7 @@ public class SpawnerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
         //apple_prefab = Resources.Load<GameObject>("Apple_prefab");
 
         ref_audioSource = gameObject.AddComponent<AudioSource>();
@@ -28,7 +34,7 @@ public class SpawnerScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         timer -= Time.deltaTime;
 
@@ -36,8 +42,33 @@ public class SpawnerScript : MonoBehaviour
         {
             float randomX = Random.value * 17f - 8.5f;
 
-            GameObject newApple = Instantiate(apple_prefab);
-            newApple.transform.position = new Vector3(randomX, 6.0f, 0);
+            //random to choose which object is going to be spawned
+            float randomObject = Random.Range(0f, 1f);
+            Debug.Log(randomObject);
+            if(randomObject - apple_pf.GetComponent<ObjectFalling>().spawnProba < 0)
+            {
+                //spawn apple
+                GameObject newApple = Instantiate(apple_pf);
+                newApple.transform.position = new Vector3(randomX, 6.0f, 0);
+            }
+            else if(randomObject - apple_pf.GetComponent<ObjectFalling>().spawnProba - rottenApple_pf.GetComponent<ObjectFalling>().spawnProba < 0)
+            {
+                //spawn rotten apple
+                GameObject newRottenApple = Instantiate(rottenApple_pf);
+                newRottenApple.transform.position = new Vector3(randomX, 6.0f, 0);
+            }
+            else if (randomObject - apple_pf.GetComponent<ObjectFalling>().spawnProba - rottenApple_pf.GetComponent<ObjectFalling>().spawnProba - banana_pf.GetComponent<ObjectFalling>().spawnProba < 0)
+            {
+                //spawn banana
+                GameObject newBanana = Instantiate(banana_pf);
+                newBanana.transform.position = new Vector3(randomX, 6.0f, 0);
+            }
+            else
+            {
+                //spawn golden apple
+                GameObject newGoldenApple = Instantiate(goldenApple_pf);
+                newGoldenApple.transform.position = new Vector3(randomX, 6.0f, 0);
+            }
 
             timer = 0.5f + Random.value*1f ;
         }

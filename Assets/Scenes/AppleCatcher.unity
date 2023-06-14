@@ -694,7 +694,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ref_audioClip: {fileID: 8300000, guid: eec2f946b79d0d744bcb1e5a1a1a609f, type: 3}
   fader_renderer: {fileID: 1348437038}
-  apple_prefab: {fileID: 8265748642164218851, guid: 532857f07a2d87d47ac7144521d5c65d, type: 3}
+  apple_pf: {fileID: 8265748642164218851, guid: 532857f07a2d87d47ac7144521d5c65d, type: 3}
+  banana_pf: {fileID: 6076781227970490594, guid: 93e8aa6507959364c8f5c8e2d19fbc80, type: 3}
+  rottenApple_pf: {fileID: 1576308458038899845, guid: 3a514558d4ab4a1438b1cbefda3f122e, type: 3}
+  goldenApple_pf: {fileID: 2843200809450976186, guid: 58302e27e9486da4d957c671accbef49, type: 3}
 --- !u!4 &1312995413
 Transform:
   m_ObjectHideFlags: 0
