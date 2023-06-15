@@ -1,43 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Ball : MonoBehaviour
 {
-    bool isSpawning = true;
-    private float timer = 2f;
+    //---------------------------------------------------------------------------------
+    // ATTRIBUTES
+    //---------------------------------------------------------------------------------
+    public bool isSpawning = true;
+    public int score;
+    public TextMeshProUGUI textTopScore;
+    public SpawnerBrickBreaker spawn;
+    public GameObject ballPF;
+    public GameObject[] listLife;
+
     [SerializeField] TextMeshPro textScore;
     [SerializeField] Canvas gameOverCanvas;
 
     private int life = 3;
-    public int score;
-    public int topScore;
-    public TextMeshProUGUI textTopScore;
-
-    public SpawnerBrickBreaker spawn;
-
-    public GameObject ballPF;
-    public GameObject[] listLife;
-    string path;
-
+    private float timer = 2f;
+    private int topScore;
     private float velocityCST;
+    private string path;
 
+    //---------------------------------------------------------------------------------
+    // METHODS
+    //---------------------------------------------------------------------------------
     void Start()
     {
         listLife = new GameObject[4];
         path = Application.dataPath + @"/TopScoreBrick.txt";
         string f = File.ReadAllText(path);
-        
+
         topScore = int.Parse(f);
 
         Vector2 initPos = new Vector2(4.82f, 4.43f);
 
         for (int i = 0; i < life; i++)
         {
+            // Instantiate ball game objects and set their positions
             GameObject newBall = Instantiate(ballPF);
             newBall.transform.position = new Vector3(initPos.x - i * 0.7f, initPos.y, -3);
             listLife[i] = newBall;
@@ -45,36 +46,34 @@ public class Ball : MonoBehaviour
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector3.zero;
-        //transform.position = new Vector3(transform.position.x, -1f, 0f);
+
+        // Set the initial position of the ball
         transform.position = new Vector3(0f, 0f, 0f);
         timer = 2f;
         isSpawning = true;
     }
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        
-        if (isSpawning)  //Respawn de la ball
+
+        if (isSpawning) // Respawn the ball
         {
             RestartBall();
         }
 
-        if(transform.position.y <= -5f && life > 0) //La balle tombe
+        if (transform.position.y <= -5f && life > 0) // Check if the ball falls off the screen
         {
             RemoveLife();
             ReSpawnBall();
         }
-        else if (life <= 0) //GameOver
+        else if (life <= 0) // Check if there are no lives left
         {
             isSpawning = false;
             gameOverCanvas.enabled = true;
-            TopScore();        
+            TopScore(); // Update the top score        
         }
-
-        //Rectification trajectoire et vitesse
-        
-        else
+        else // Adjust trajectory and velocity
         {
             if (rb.velocity.y <= 2 && rb.velocity.y >= -2)
             {
@@ -87,6 +86,7 @@ public class Ball : MonoBehaviour
                 rb.velocity = rb.velocity.normalized * velocityCST;
             }
         }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -95,7 +95,7 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Brick")
+        if (collision.gameObject.tag == "Brick")
         {
             score += 50;
             textScore.SetText("SCORE : " + score);
@@ -104,38 +104,44 @@ public class Ball : MonoBehaviour
 
     public void RestartBall()
     {
-        timer -= 1f*Time.deltaTime;
+        timer -= 1f * Time.deltaTime;
 
-        if(timer <= 0f)
+        if (timer <= 0f)
         {
             isSpawning = false;
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+            // Set the velocity of the ball after respawning
             rb.velocity = new Vector3(0f, -8f - spawn.lineNumber, 0f);
             velocityCST = rb.velocity.magnitude;
         }
     }
+
     public void ReSpawnBall()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector3.zero;
-        //transform.position = new Vector3(transform.position.x, -1f, 0f);
+
+        // Reset the position of the ball after respawning
         transform.position = new Vector3(0f, 0f, 0f);
         timer = 2f;
         isSpawning = true;
     }
+
     public void RemoveLife()
     {
         life--;
         if (life >= 0)
         {
-            Destroy(listLife[life]);
+            Destroy(listLife[life]); // Destroy the game object representing a life
             listLife[life] = null;
         }
     }
+
     public void AddLife()
     {
         GameObject newBall = Instantiate(ballPF);
-      
+
         newBall.transform.position = listLife[life - 1].transform.position;
         newBall.transform.Translate(-0.7f, 0, 0);
         listLife[life] = newBall;
@@ -150,10 +156,9 @@ public class Ball : MonoBehaviour
         {
             topScore = score;
             f = topScore.ToString();
-            File.WriteAllText(path, f);
-            
+            File.WriteAllText(path, f); // Write the updated top score to the file
         }
-        textTopScore.SetText("TopScore : "+topScore);
+        textTopScore.SetText("TopScore : " + topScore);
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sortingOrder = -1;
     }

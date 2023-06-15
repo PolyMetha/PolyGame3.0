@@ -38,12 +38,12 @@ public class PaddleMovement : MonoBehaviour
         // Move paddle based on keyboard input
         if (Input.GetKey(KeyCode.RightArrow) && transform.position.x < 4.6f)
         {
-            transform.Translate(SPEED * Time.deltaTime*7, 0f, 0f);
+            transform.Translate(SPEED * Time.deltaTime, 0f, 0f);
         }
 
         if (Input.GetKey(KeyCode.LeftArrow) && transform.position.x > -4.6f)
         {
-            transform.Translate(-SPEED * Time.deltaTime*7, 0f, 0f);
+            transform.Translate(-SPEED * Time.deltaTime, 0f, 0f);
         }
 
         // Move paddle based on mouse position
