@@ -14,7 +14,7 @@ public class GameLoad : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        path = Application.dataPath + @"\TopScoreBird.txt";
+        path = Application.dataPath + @"TopScoreBird.txt";
 
         string f = File.ReadAllText(path);
 
@@ -30,7 +30,6 @@ public class GameLoad : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             StartCoroutine(loadGame());
-            //Debug.Log("hehehe");
         }
     }
 
