@@ -1,37 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerBrickBreaker : MonoBehaviour
 {
+    //---------------------------------------------------------------------------------
+    // ATTRIBUTES
+    //---------------------------------------------------------------------------------
     [SerializeField] GameObject brick;
     [SerializeField] GameObject brickG;
-    
-    //[SerializeField] PaddleMovement pM;
 
     public Ball ball;
+    public int lineNumber = 0;
 
     private float brick_width = 1.76f;
     private float brick_height = 0.92f;
-    
     private float largeur = 11f;
+    private int colonne = 7;
+    private int createdBricks = 0;
+    private float proba_bricks = 0.6f;
 
-    public int colonne = 7;   //Nombre de colonnes/2
-    public int lineNumber = 0;
-    int createdBricks = 0;
-       
-    public float proba_bricks = 0.8f;
-
+    //---------------------------------------------------------------------------------
+    // METHODS
+    //---------------------------------------------------------------------------------
     // Start is called before the first frame update
     void Start()
     {
-       spawnGrid();
+        spawnGrid();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(ball.score >= createdBricks * 50)
+        // Check if the score reached a certain threshold to add life, increase line number, spawn a new grid, and respawn the ball
+        if (ball.score >= createdBricks * 50)
         {
             ball.AddLife();
             lineNumber++;
@@ -42,25 +42,23 @@ public class SpawnerBrickBreaker : MonoBehaviour
 
     public void spawnGrid()
     {
-        float L_B = largeur / (colonne*2);
-        
-        float R = 1.8f; //rapport entre scale et vrai largeur
-
+        // Calculate the scale and position for grid spawning
+        float L_B = largeur / (colonne * 2);
+        float R = 1.8f;
         float scale = L_B / R;
-
-        float y = 3.33f - scale / 2; //hauteur initiale
+        float y = 3.33f - scale / 2;
 
         for (int j = 0; j <= lineNumber; j++)
         {
-
             for (int i = 0; i < colonne; i++)
             {
-                
+                // Randomly determine if a brick should be spawned based on probability
                 if (Random.value <= proba_bricks)
                 {
                     GameObject brick1;
                     GameObject brick2;
-                    
+
+                    // Instantiate brick or brickG based on a random value
                     if (Random.value < 0.6)
                     {
                         brick1 = Instantiate(brick);
@@ -74,6 +72,7 @@ public class SpawnerBrickBreaker : MonoBehaviour
                         createdBricks += 4;
                     }
 
+                    // Set brick parent and position
                     brick1.transform.parent = gameObject.transform;
                     brick2.transform.parent = gameObject.transform;
 
@@ -84,7 +83,7 @@ public class SpawnerBrickBreaker : MonoBehaviour
                     brick1.transform.localScale = new Vector3(scale, scale, -3);
 
                     brick2.transform.position = new Vector3(-x1, y1);
-                    brick2.transform.localScale = new Vector3( scale, scale, -3);
+                    brick2.transform.localScale = new Vector3(scale, scale, -3);
                 }
             }
         }

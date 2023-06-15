@@ -1,10 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CanvasOptionBrick : MonoBehaviour
 {
+    //---------------------------------------------------------------------------------
+    // METHODS
+    //---------------------------------------------------------------------------------
     public void RestartGame()
     {
         StartCoroutine(Restart());
@@ -14,23 +16,26 @@ public class CanvasOptionBrick : MonoBehaviour
     {
         StartCoroutine(Menu());
     }
-    
 
     IEnumerator Restart()
     {
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("BrickBreaker");
-        while (!asyncload.isDone)
+        // Load the "BrickBreaker" scene asynchronously
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("BrickBreaker");
+
+        // Wait until the scene is fully loaded
+        while (!asyncLoad.isDone)
         {
             yield return null;
         }
     }
+
     IEnumerator Menu()
     {
-        
-        //Mettre le bon nom du menu
-        
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
-        while (!asyncload.isDone)
+        // Load the "MainMenu" scene asynchronously
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
+
+        // Wait until the scene is fully loaded
+        while (!asyncLoad.isDone)
         {
             yield return null;
         }
