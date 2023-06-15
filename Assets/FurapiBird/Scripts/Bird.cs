@@ -12,7 +12,6 @@ public class Bird : MonoBehaviour
     public bool isAlive = true;
     private Animator animator;
     [SerializeField] ObstacleSpawner oS;
-    [SerializeField] List<AudioClip> audioClips = new List<AudioClip>();
     private AudioSource audiosource;
     public int topScore;
 
@@ -20,21 +19,18 @@ public class Bird : MonoBehaviour
     
     void Start()
     {
-        path = Application.dataPath + @"\TopScoreBird.txt";
-
-        string f = File.ReadAllText(path);
-
-        topScore = int.Parse(f);
-
         animator = this.GetComponent<Animator>();
         audiosource = this.GetComponent<AudioSource>();
-        audiosource.clip = audioClips[0];
-        this.isAlive = true;
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {        
+        if (!isAlive)
+        {
+            return;
+        }
+
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && isAlive)
         {
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 5f);
@@ -46,12 +42,6 @@ public class Bird : MonoBehaviour
             animator.SetTrigger("IsRising");
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 30f));
         }
-        else if (!isAlive)
-        {
-            animator.SetTrigger("IsDead");
-
-            
-        }
         else if (!IsRising())
         {
             animator.SetTrigger("IsFalling");
@@ -60,23 +50,37 @@ public class Bird : MonoBehaviour
                 transform.Rotate(new Vector3(0, 0, -90f * Time.deltaTime));
             }
         }
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Obstacle")
         {
+            animator.SetTrigger("IsDead");
             StartCoroutine("WhenDead"); 
-            audiosource.clip = audioClips[1];
             audiosource.Play(); 
-            this.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-            this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             isAlive = false;
             oS.pipeSpeed = 0;
 
             TopScore();
         }
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            animator.SetTrigger("IsDead");
+            StartCoroutine("WhenDead");
+            audiosource.Play();
+            isAlive = false;
+            oS.pipeSpeed = 0;
+
+            TopScore();
+        }
     }
 
     private bool IsRising()
@@ -107,7 +111,7 @@ public class Bird : MonoBehaviour
 
         }else if (Input.GetKeyDown(KeyCode.R))
         {
-            StartCoroutine("loadGame");
+            StartCoroutine(loadGame());
             Debug.Log("Restart");
 
         }

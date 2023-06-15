@@ -21,10 +21,11 @@ public class ObstacleSpawner : MonoBehaviour
     {
         UI.fontSize = 0;
         music = GetComponent<AudioSource>();
+        b = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         timer -= Time.deltaTime;
         timerSpeed -= Time.deltaTime;   
