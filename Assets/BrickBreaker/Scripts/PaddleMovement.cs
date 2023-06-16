@@ -30,7 +30,7 @@ public class PaddleMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector3 pos = gameObject.transform.position;
         Vector2 point = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -65,6 +65,14 @@ public class PaddleMovement : MonoBehaviour
         else
         {
             ball.GetComponent<Rigidbody2D>().velocity += new Vector2(diff * angleValue, 0);
+        }
+
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            Destroy(collision.gameObject);
+            ball.coinHit += 1;
+            ball.score += 100;
+            ball.textScore.SetText("SCORE: " + ball.score);
         }
 
         audioSource.Play(); // Play collision sound

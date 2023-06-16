@@ -342,9 +342,7 @@ MonoBehaviour:
   brick: {fileID: 7303525799941922307, guid: 1c8b480da6723a647862891c2ab64f2c, type: 3}
   brickG: {fileID: 758009575721148294, guid: 9b979528f903aa0469f694138debcda7, type: 3}
   ball: {fileID: 1780850685}
-  colonne: 6
   lineNumber: 0
-  proba_bricks: 0.65
 --- !u!1 &312566535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1508,8 +1506,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 1780850685}
-  SPEED: 8
-  angleValue: 3
   soundToPlay: {fileID: 8300000, guid: 4f7fdef3c2e57c249b9280109b1642cf, type: 3}
 --- !u!61 &1335376595
 BoxCollider2D:
@@ -2255,14 +2251,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1679f5d1370d5984f9a6b4dcf2f0a9dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textScore: {fileID: 128506121}
-  gameOverCanvas: {fileID: 848036283}
+  isSpawning: 1
   score: 0
-  topScore: 0
   textTopScore: {fileID: 1982838242}
   spawn: {fileID: 237572795}
   ballPF: {fileID: 1635063775555712789, guid: b35971c08fc8254429565bc4ed81bfed, type: 3}
   listLife: []
+  coinHit: 0
+  textScore: {fileID: 128506121}
+  gameOverCanvas: {fileID: 848036283}
+  coinPrefab: {fileID: 6569139717722677452, guid: 3558107ed4a214781a2c970e4bf16fcc, type: 3}
 --- !u!1 &1982838240
 GameObject:
   m_ObjectHideFlags: 0

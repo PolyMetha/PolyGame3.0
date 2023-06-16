@@ -13,9 +13,11 @@ public class Ball : MonoBehaviour
     public SpawnerBrickBreaker spawn;
     public GameObject ballPF;
     public GameObject[] listLife;
+    public int coinHit = 0;
 
-    [SerializeField] TextMeshPro textScore;
+    [SerializeField] public TextMeshPro textScore;
     [SerializeField] Canvas gameOverCanvas;
+    [SerializeField] public GameObject coinPrefab;
 
     private int life = 3;
     private float timer = 2f;
@@ -95,10 +97,14 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Brick")
+        if (collision.gameObject.CompareTag("Brick"))
         {
+            if (Random.value <= 0.1f)
+            {
+                Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            }
             score += 50;
-            textScore.SetText("SCORE : " + score);
+            textScore.SetText("SCORE: " + score);
         }
     }
 

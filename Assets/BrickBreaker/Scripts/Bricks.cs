@@ -21,7 +21,7 @@ public class Bricks : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        if (hitCount == 1)
+        else if (hitCount == 1)
         {
             // Instantiate a new brick game object
             GameObject newBrick = Instantiate(brickPF);

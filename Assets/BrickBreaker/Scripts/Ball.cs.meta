@@ -3,7 +3,13 @@ guid: 1679f5d1370d5984f9a6b4dcf2f0a9dd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - textTopScore: {instanceID: 0}
+  - spawn: {instanceID: 0}
+  - ballPF: {instanceID: 0}
+  - textScore: {instanceID: 0}
+  - gameOverCanvas: {instanceID: 0}
+  - coinPrefab: {fileID: 6569139717722677452, guid: 3558107ed4a214781a2c970e4bf16fcc, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

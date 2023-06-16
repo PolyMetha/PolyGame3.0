@@ -10,11 +10,13 @@ TagManager:
   - GoldenApple
   - Banana
   - Bomb
+  - Not_brick
+  - Coin
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ball & Coin
   - Water
   - UI
   - 

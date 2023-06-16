@@ -3,7 +3,8 @@ guid: 0aa529c4af5c65b42836b6d96c100248
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - brickPF: {fileID: 758009575721148294, guid: 9b979528f903aa0469f694138debcda7, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
