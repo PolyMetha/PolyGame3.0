@@ -8,12 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Stack.unity
-    guid: 637ea832839acc64e9065444d1102a74
-  - enabled: 1
-    path: Assets/Scenes/Title.unity
-    guid: a04409319c9aa054a9982b5acf327786
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/FurapiBird.unity
     guid: 3dd5cd490fd11864abbb186c215e6d74
@@ -23,9 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BrickBreaker.unity
     guid: 55dc6d0a59d724e429334765b74b587b
-  - enabled: 1
-    path: Assets/Scenes/AppleCatcher.unity
-    guid: 49e49070469db194eb57769cd9d9a5a2
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/AppleCatcherLoad.unity
     guid: 94614199abfe62844933f87af6987fa4

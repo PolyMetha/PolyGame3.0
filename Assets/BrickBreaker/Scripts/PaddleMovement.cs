@@ -8,7 +8,7 @@ public class PaddleMovement : MonoBehaviour
     //---------------------------------------------------------------------------------
     private Camera cam;
     private float SPEED = 8f;
-    private float angleValue = 3f;
+    private float angleValue = 5f;
     private Vector2 lastPoint;
 
     [SerializeField] Ball ball;
@@ -56,25 +56,27 @@ public class PaddleMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Adjust ball's velocity based on the collision point with the paddle
-        float diff = ball.transform.position.x - transform.position.x;
-        if (ball.transform.position.x - transform.position.x < 0)
+        if (collision.gameObject.CompareTag("Ball"))
         {
-            ball.GetComponent<Rigidbody2D>().velocity += new Vector2(diff * angleValue, 0);
-        }
-        else
-        {
-            ball.GetComponent<Rigidbody2D>().velocity += new Vector2(diff * angleValue, 0);
-        }
+            // Adjust ball's velocity based on the collision point with the paddle
+            float diff = ball.transform.position.x - transform.position.x;
+            if (ball.transform.position.x - transform.position.x < 0)
+            {
+                ball.GetComponent<Rigidbody2D>().velocity += new Vector2(diff * angleValue, 0);
+            }
+            else
+            {
+                ball.GetComponent<Rigidbody2D>().velocity += new Vector2(diff * angleValue, 0);
+            }
 
-        if (collision.gameObject.CompareTag("Coin"))
+            audioSource.Play(); // Play collision sound
+        }
+        else if (collision.gameObject.CompareTag("Coin"))
         {
             Destroy(collision.gameObject);
             ball.coinHit += 1;
             ball.score += 100;
             ball.textScore.SetText("SCORE: " + ball.score);
         }
-
-        audioSource.Play(); // Play collision sound
     }
 }
