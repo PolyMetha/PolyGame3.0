@@ -37,21 +37,23 @@ public class Bird : MonoBehaviour
             audiosource.Play();
         }
 
-        if (IsRising())
+        if (!IsRising())
         {
             animator.SetTrigger("IsRising");
-            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 30f));
+            if (transform.rotation.z < 20f)
+            {
+                transform.Rotate(new Vector3(0, 0, 0));
+            }
+            transform.Rotate(new Vector3(0, 0, -20f * Time.deltaTime));
         }
-        else if (!IsRising())
+        else if (IsRising())
         {
             animator.SetTrigger("IsFalling");
-            if (transform.rotation.z < 30f)
+            if (transform.rotation.z < 20f)
             {
-                transform.Rotate(new Vector3(0, 0, -90f * Time.deltaTime));
+                transform.Rotate(new Vector3(0, 0, 20f * Time.deltaTime));
             }
         }
-
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

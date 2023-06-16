@@ -14,10 +14,8 @@ public class PipeObstacle_Script : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
-
         transform.Translate( -scriptSpawner.pipeSpeed * Time.deltaTime , 0, 0 );
         if (transform.position.x < despawn_posX)
         {

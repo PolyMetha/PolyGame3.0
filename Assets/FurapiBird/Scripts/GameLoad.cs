@@ -16,7 +16,7 @@ public class GameLoad : MonoBehaviour
     void Start()
     {
         //setting top score
-        path = Application.dataPath + @"\TopScoreBird.txt";
+        path = Application.dataPath + "TopScoreBird.txt";
         string f = File.ReadAllText(path);
         int topScore = int.Parse(f);
         topScoreText.SetText("TopScore : " + topScore);
