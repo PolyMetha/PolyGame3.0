@@ -35,6 +35,10 @@ public class GameMaster : MonoBehaviour
                 timeRemaining -= Time.deltaTime; // Decrease the time remaining by the time passed since the last frame
                 minutes = Mathf.FloorToInt(timeRemaining / 60); // Calculate the minutes from the remaining time
                 seconds = Mathf.FloorToInt(timeRemaining % 60); // Calculate the seconds from the remaining time
+                if (seconds < 10 && minutes < 1)
+                {
+                    textTimeLeft.color = Color.red;
+                }
                 textTimeLeft.SetText(string.Format("{0:00}:{1:00}", minutes, seconds) + " Left"); // Update the TextMeshPro component to display the time left
             }
             else
