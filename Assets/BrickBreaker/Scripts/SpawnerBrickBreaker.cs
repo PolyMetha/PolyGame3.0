@@ -14,8 +14,8 @@ public class SpawnerBrickBreaker : MonoBehaviour
     private float brick_width = 1.76f;
     private float brick_height = 0.92f;
     private float largeur = 11f;
-    private int colonne = 20;
-    private int createdBricks = 0;
+    private int colonne = 7;
+    public int createdBricks = 0;
     private float proba_bricks = 0.6f;
 
     //---------------------------------------------------------------------------------
