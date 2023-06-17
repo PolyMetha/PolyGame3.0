@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 331570016264130070}
   - component: {fileID: 8794408863311730961}
   - component: {fileID: 4764545214777535293}
-  m_Layer: 6
+  m_Layer: 4
   m_Name: BrickGrey_prefab
   m_TagString: Brick
   m_Icon: {fileID: 0}

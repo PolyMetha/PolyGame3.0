@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7303525799941922306}
   - component: {fileID: 7303525799941922311}
   - component: {fileID: 7303525799941922304}
-  m_Layer: 6
+  m_Layer: 4
   m_Name: BrickGold_prefab
   m_TagString: Brick
   m_Icon: {fileID: 0}

@@ -1,7 +1,6 @@
 using System.IO;
 using UnityEngine;
 using TMPro;
-using System.Collections;
 
 public class Ball : MonoBehaviour
 {
@@ -28,12 +27,15 @@ public class Ball : MonoBehaviour
     [SerializeField] AudioClip soundOnRestart;
     AudioSource audioSourceFall;
     [SerializeField] AudioClip soundOnFall;
+    public AudioSource audioSourceEnd;
+    [SerializeField] AudioClip soundOnEnd;
 
-    private int life = 5;
+    private int life = 3;
     private float timer = 2f;
     private int topScore;
     private float velocityCST;
     private string path;
+    private bool gameOverSound = false;
 
     //---------------------------------------------------------------------------------
     // METHODS
@@ -56,6 +58,10 @@ public class Ball : MonoBehaviour
         audioSourceFall.clip = soundOnFall;
         audioSourceFall.playOnAwake = false;
 
+        audioSourceEnd = gameObject.AddComponent<AudioSource>();
+        audioSourceEnd.clip = soundOnEnd;
+        audioSourceEnd.playOnAwake = false;
+
         audioSourceRestart.Play();
 
         listLife = new GameObject[5];
@@ -66,7 +72,7 @@ public class Ball : MonoBehaviour
 
         Vector2 initPos = new Vector2(4.82f, 4.43f);
 
-        for (int i = 0; i < life; i++)
+        for (int i = 0; i < life-1; i++)
         {
             // Instantiate ball game objects and set their positions
             GameObject newBall = Instantiate(ballPF);
@@ -92,13 +98,16 @@ public class Ball : MonoBehaviour
             RestartBall();
         }
 
-        if (transform.position.y <= -5f && life > 0) // Check if the ball falls off the screen
+        if (transform.position.y <= -5f && life != 0) // Check if the ball falls off the screen
         {
-            audioSourceFall.Play();
             RemoveLife();
-            ReSpawnBall();
+            audioSourceFall.Play();
+            if (life > 0)
+            {
+                ReSpawnBall();
+            }
         }
-        else if (life <= 0) // Check if there are no lives left
+        else if (life == 0) // Check if there are no lives left
         {
             isSpawning = false;
             gameOverCanvas.enabled = true;
@@ -176,10 +185,10 @@ public class Ball : MonoBehaviour
     public void RemoveLife()
     {
         life--;
-        if (life >= 0)
+        if (life > 0)
         {
-            Destroy(listLife[life]); // Destroy the game object representing a life
-            listLife[life] = null;
+            Destroy(listLife[life-1]); // Destroy the game object representing a life
+            listLife[life-1] = null;
         }
     }
 
@@ -197,6 +206,13 @@ public class Ball : MonoBehaviour
 
     public void TopScore()
     {
+        if (!gameOverSound) //On vérifie que le Son n'a pas déjà été joué.
+        {
+            audioSourceEnd.Play();
+            gameOverSound = true;
+        }
+
+        Debug.Log("audio");
         string f;
 
         if (score > topScore)
@@ -206,7 +222,6 @@ public class Ball : MonoBehaviour
             File.WriteAllText(path, f); // Write the updated top score to the file
         }
         textTopScore.SetText("TopScore : " + topScore);
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sortingOrder = -1;
+        
     }
 }

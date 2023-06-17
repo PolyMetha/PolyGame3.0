@@ -619,7 +619,7 @@ GameObject:
   - component: {fileID: 765051661}
   - component: {fileID: 765051660}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -857,6 +857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136cf0946719f2445ba97ca3b0d86987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 1780850685}
 --- !u!1 &928378045
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,7 +871,7 @@ GameObject:
   - component: {fileID: 928378048}
   - component: {fileID: 928378047}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2265,6 +2266,8 @@ MonoBehaviour:
   soundOnPaddle: {fileID: 8300000, guid: 4f7fdef3c2e57c249b9280109b1642cf, type: 3}
   soundOnRestart: {fileID: 8300000, guid: 8b1c6c03e1796c0468f9628150d70dd3, type: 3}
   soundOnFall: {fileID: 8300000, guid: 7fa13b1085e566f44ac129616c95d9b5, type: 3}
+  audioSourceEnd: {fileID: 0}
+  soundOnEnd: {fileID: 8300000, guid: af100a2096ee89a48a0357926a10e2f6, type: 3}
 --- !u!1 &1982838240
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class CanvasOptionBrick : MonoBehaviour
 {
+    public Ball ball;
     //---------------------------------------------------------------------------------
     // METHODS
     //---------------------------------------------------------------------------------
@@ -27,6 +28,8 @@ public class CanvasOptionBrick : MonoBehaviour
         {
             yield return null;
         }
+
+        ball.audioSourceEnd.Stop();
     }
 
     IEnumerator Menu()
@@ -39,5 +42,7 @@ public class CanvasOptionBrick : MonoBehaviour
         {
             yield return null;
         }
+
+        ball.audioSourceEnd.Stop();
     }
 }
