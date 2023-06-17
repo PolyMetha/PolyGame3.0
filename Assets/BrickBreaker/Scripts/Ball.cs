@@ -212,7 +212,6 @@ public class Ball : MonoBehaviour
             gameOverSound = true;
         }
 
-        Debug.Log("audio");
         string f;
 
         if (score > topScore)
