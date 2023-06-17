@@ -19,7 +19,7 @@ public class Ball : MonoBehaviour
     [SerializeField] Canvas gameOverCanvas;
     [SerializeField] public GameObject coinPrefab;
 
-    private int life = 3;
+    private int life = 5;
     private float timer = 2f;
     private int topScore;
     private float velocityCST;
@@ -30,7 +30,7 @@ public class Ball : MonoBehaviour
     //---------------------------------------------------------------------------------
     void Start()
     {
-        listLife = new GameObject[4];
+        listLife = new GameObject[5];
         path = Application.dataPath + @"/TopScoreBrick.txt";
         string f = File.ReadAllText(path);
 
@@ -146,12 +146,14 @@ public class Ball : MonoBehaviour
 
     public void AddLife()
     {
-        GameObject newBall = Instantiate(ballPF);
-
-        newBall.transform.position = listLife[life - 1].transform.position;
-        newBall.transform.Translate(-0.7f, 0, 0);
-        listLife[life] = newBall;
-        life++;
+        if (life < 5)
+        {
+            GameObject newBall = Instantiate(ballPF);
+            newBall.transform.position = listLife[life - 1].transform.position;
+            newBall.transform.Translate(-0.7f, 0, 0);
+            listLife[life] = newBall;
+            life++;
+        }
     }
 
     public void TopScore()
