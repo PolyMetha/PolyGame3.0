@@ -11,6 +11,9 @@ public class PaddleMovement : MonoBehaviour
     private float angleValue = 5f;
     private Vector2 lastPoint;
 
+    protected AudioSource audioSourceCoin;
+    [SerializeField] AudioClip soundOnCoin;
+
     [SerializeField] Ball ball;
 
     public MouseMoveEvent MoveEvent;
@@ -21,6 +24,9 @@ public class PaddleMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSourceCoin = gameObject.AddComponent<AudioSource>();
+        audioSourceCoin.clip = soundOnCoin;
+        audioSourceCoin.playOnAwake = false;
         cam = Camera.main;
     }
 
@@ -66,6 +72,7 @@ public class PaddleMovement : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Coin"))
         {
+            audioSourceCoin.Play();
             Destroy(collision.gameObject);
             ball.coinHit += 1;
             ball.score += 100;

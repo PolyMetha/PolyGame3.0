@@ -5,9 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class ScenesLoader : MonoBehaviour
 {
+    AudioSource audioSourceSelectedGame;
+    [SerializeField] AudioClip soundOnSelectedGame;
+
+    protected AudioSource audioSourceBackground;
+    [SerializeField] AudioClip soundOnBackground;
+
+    void Start()
+    {
+        audioSourceSelectedGame = gameObject.AddComponent<AudioSource>();
+        audioSourceSelectedGame.clip = soundOnSelectedGame;
+        audioSourceSelectedGame.playOnAwake = false;
+
+        audioSourceBackground = gameObject.AddComponent<AudioSource>();
+        audioSourceBackground.loop = true;
+        audioSourceBackground.volume = 0.5f;
+        audioSourceBackground.clip = soundOnBackground;
+        audioSourceBackground.Play();
+    }
 
     public IEnumerator LoadBirdCoroutine()
     {
+        audioSourceBackground.Stop();
+        audioSourceSelectedGame.Play();
+        yield return new WaitForSeconds(1.5f);
         AsyncOperation asyncload = SceneManager.LoadSceneAsync("FurapiBirdLoad");
         while (!asyncload.isDone)
         {
@@ -22,6 +43,9 @@ public class ScenesLoader : MonoBehaviour
 
     public IEnumerator LoadAppleCoroutine()
     {
+        audioSourceBackground.Stop();
+        audioSourceSelectedGame.Play();
+        yield return new WaitForSeconds(1.5f);
         AsyncOperation asyncload = SceneManager.LoadSceneAsync("AppleCatcherLoad");
         while (!asyncload.isDone)
         {
@@ -36,6 +60,9 @@ public class ScenesLoader : MonoBehaviour
 
     public IEnumerator LoadBrickCoroutine()
     {
+        audioSourceBackground.Stop();
+        audioSourceSelectedGame.Play();
+        yield return new WaitForSeconds(1.5f);
         AsyncOperation asyncload = SceneManager.LoadSceneAsync("BrickBreaker");
         while (!asyncload.isDone)
         {

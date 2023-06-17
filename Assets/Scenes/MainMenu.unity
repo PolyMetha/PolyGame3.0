@@ -260,7 +260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -274.35, y: -95}
+  m_AnchoredPosition: {x: -10, y: -134}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288846607
@@ -1030,6 +1030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -1049,7 +1050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1071303261}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &901443598
@@ -1096,6 +1097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a4876159778bd4a81a0b6e85fb9506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOnSelectedGame: {fileID: 8300000, guid: e69ba360b92f37b4294072df07b02bb3, type: 3}
+  soundOnBackground: {fileID: 8300000, guid: b1f7d80be59762641b845b3ea6ebcc48, type: 3}
 --- !u!4 &1071303263
 Transform:
   m_ObjectHideFlags: 0
@@ -1264,7 +1267,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 56.1, y: -102.7}
+  m_AnchoredPosition: {x: 217, y: 63}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1341875674
@@ -1689,7 +1692,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -95.1, y: 114.13}
+  m_AnchoredPosition: {x: -199, y: 83}
   m_SizeDelta: {x: 140, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1721872515

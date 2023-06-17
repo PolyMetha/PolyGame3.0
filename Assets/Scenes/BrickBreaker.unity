@@ -1505,6 +1505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdae42dd95d78544946c42cc50af2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOnCoin: {fileID: 8300000, guid: 73f2e9b0b6f3488408b612fc966a5291, type: 3}
   ball: {fileID: 1780850685}
 --- !u!61 &1335376595
 BoxCollider2D:
@@ -2263,6 +2264,7 @@ MonoBehaviour:
   soundOnWall: {fileID: 8300000, guid: 3aab7bee023a38844877f5b7f2d95d84, type: 3}
   soundOnPaddle: {fileID: 8300000, guid: 4f7fdef3c2e57c249b9280109b1642cf, type: 3}
   soundOnRestart: {fileID: 8300000, guid: 8b1c6c03e1796c0468f9628150d70dd3, type: 3}
+  soundOnFall: {fileID: 8300000, guid: 7fa13b1085e566f44ac129616c95d9b5, type: 3}
 --- !u!1 &1982838240
 GameObject:
   m_ObjectHideFlags: 0

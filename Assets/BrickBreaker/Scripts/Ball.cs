@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class Ball : MonoBehaviour
 {
@@ -25,8 +26,10 @@ public class Ball : MonoBehaviour
     [SerializeField] AudioClip soundOnPaddle;
     AudioSource audioSourceRestart;
     [SerializeField] AudioClip soundOnRestart;
+    AudioSource audioSourceFall;
+    [SerializeField] AudioClip soundOnFall;
 
-    private int life = 3;
+    private int life = 5;
     private float timer = 2f;
     private int topScore;
     private float velocityCST;
@@ -48,6 +51,10 @@ public class Ball : MonoBehaviour
         audioSourceRestart = gameObject.AddComponent<AudioSource>();
         audioSourceRestart.clip = soundOnRestart;
         audioSourceRestart.playOnAwake = false;
+
+        audioSourceFall = gameObject.AddComponent<AudioSource>();
+        audioSourceFall.clip = soundOnFall;
+        audioSourceFall.playOnAwake = false;
 
         audioSourceRestart.Play();
 
@@ -87,6 +94,7 @@ public class Ball : MonoBehaviour
 
         if (transform.position.y <= -5f && life > 0) // Check if the ball falls off the screen
         {
+            audioSourceFall.Play();
             RemoveLife();
             ReSpawnBall();
         }
@@ -140,7 +148,7 @@ public class Ball : MonoBehaviour
 
     public void RestartBall()
     {
-        timer -= 1f * Time.deltaTime;
+        timer -= 0.75f * Time.deltaTime;
 
         if (timer <= 0f)
         {
