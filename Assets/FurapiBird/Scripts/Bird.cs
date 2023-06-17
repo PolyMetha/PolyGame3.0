@@ -40,18 +40,25 @@ public class Bird : MonoBehaviour
         if (!IsRising())
         {
             animator.SetTrigger("IsRising");
-            if (transform.rotation.z < 20f)
+            if (transform.rotation.z >= -15f)
             {
-                transform.Rotate(new Vector3(0, 0, 0));
+                transform.Rotate(new Vector3(0, 0, -2.4f * 6 * Time.deltaTime));
             }
-            transform.Rotate(new Vector3(0, 0, -20f * Time.deltaTime));
+            else
+            {
+                transform.Rotate(new Vector3(0, 0, -transform.rotation.z));
+            }
         }
         else if (IsRising())
         {
             animator.SetTrigger("IsFalling");
-            if (transform.rotation.z < 20f)
+            if (transform.rotation.z <= 15f)
             {
-                transform.Rotate(new Vector3(0, 0, 20f * Time.deltaTime));
+                transform.Rotate(new Vector3(0, 0, 2.0f * 6 * Time.deltaTime));
+            }
+            else
+            {
+                transform.Rotate(new Vector3(0, 0, -transform.rotation.z));
             }
         }
     }
