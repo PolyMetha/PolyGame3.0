@@ -10,9 +10,10 @@ TagManager:
   - GoldenApple
   - Banana
   - Bomb
-  - Not_brick
   - Coin
   - Ball
+  - Wall
+  - Paddle
   layers:
   - Default
   - TransparentFX

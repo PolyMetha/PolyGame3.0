@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 312566536}
   m_Layer: 0
   m_Name: WallTop
-  m_TagString: Not_brick
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1004,7 +1004,7 @@ GameObject:
   - component: {fileID: 1118557989}
   m_Layer: 0
   m_Name: WallLeft
-  m_TagString: Not_brick
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1421,7 +1421,7 @@ GameObject:
   - component: {fileID: 1335376597}
   m_Layer: 0
   m_Name: Paddle
-  m_TagString: Not_brick
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1506,7 +1506,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 1780850685}
-  soundToPlay: {fileID: 8300000, guid: 4f7fdef3c2e57c249b9280109b1642cf, type: 3}
 --- !u!61 &1335376595
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1798,7 +1797,7 @@ GameObject:
   - component: {fileID: 1661755406}
   m_Layer: 0
   m_Name: WallRight
-  m_TagString: Not_brick
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2261,6 +2260,9 @@ MonoBehaviour:
   textScore: {fileID: 128506121}
   gameOverCanvas: {fileID: 848036283}
   coinPrefab: {fileID: 6569139717722677452, guid: 3558107ed4a214781a2c970e4bf16fcc, type: 3}
+  soundOnWall: {fileID: 8300000, guid: 3aab7bee023a38844877f5b7f2d95d84, type: 3}
+  soundOnPaddle: {fileID: 8300000, guid: 4f7fdef3c2e57c249b9280109b1642cf, type: 3}
+  soundOnRestart: {fileID: 8300000, guid: 8b1c6c03e1796c0468f9628150d70dd3, type: 3}
 --- !u!1 &1982838240
 GameObject:
   m_ObjectHideFlags: 0

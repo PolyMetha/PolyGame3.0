@@ -19,7 +19,14 @@ public class Ball : MonoBehaviour
     [SerializeField] Canvas gameOverCanvas;
     [SerializeField] public GameObject coinPrefab;
 
-    private int life = 5;
+    AudioSource audioSourceWall;
+    [SerializeField] AudioClip soundOnWall;
+    AudioSource audioSourcePaddle;
+    [SerializeField] AudioClip soundOnPaddle;
+    AudioSource audioSourceRestart;
+    [SerializeField] AudioClip soundOnRestart;
+
+    private int life = 3;
     private float timer = 2f;
     private int topScore;
     private float velocityCST;
@@ -30,6 +37,20 @@ public class Ball : MonoBehaviour
     //---------------------------------------------------------------------------------
     void Start()
     {
+        audioSourceWall = gameObject.AddComponent<AudioSource>();
+        audioSourceWall.clip = soundOnWall;
+        audioSourceWall.playOnAwake = false;
+
+        audioSourcePaddle = gameObject.AddComponent<AudioSource>();
+        audioSourcePaddle.clip = soundOnPaddle;
+        audioSourcePaddle.playOnAwake = false;
+
+        audioSourceRestart = gameObject.AddComponent<AudioSource>();
+        audioSourceRestart.clip = soundOnRestart;
+        audioSourceRestart.playOnAwake = false;
+
+        audioSourceRestart.Play();
+
         listLife = new GameObject[5];
         path = Application.dataPath + @"/TopScoreBrick.txt";
         string f = File.ReadAllText(path);
@@ -105,6 +126,15 @@ public class Ball : MonoBehaviour
             }
             score += 50;
             textScore.SetText("SCORE: " + score);
+            audioSourcePaddle.Play();
+        }
+        else if (collision.gameObject.CompareTag("Wall"))
+        {
+            audioSourceWall.Play();
+        }
+        else if (collision.gameObject.CompareTag("Paddle"))
+        {
+            audioSourcePaddle.Play();
         }
     }
 
@@ -125,6 +155,7 @@ public class Ball : MonoBehaviour
 
     public void ReSpawnBall()
     {
+        audioSourceRestart.Play();
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector3.zero;
 

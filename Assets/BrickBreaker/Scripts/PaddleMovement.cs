@@ -12,8 +12,6 @@ public class PaddleMovement : MonoBehaviour
     private Vector2 lastPoint;
 
     [SerializeField] Ball ball;
-    AudioSource audioSource;
-    [SerializeField] AudioClip soundToPlay;
 
     public MouseMoveEvent MoveEvent;
 
@@ -23,9 +21,6 @@ public class PaddleMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = soundToPlay;
-        audioSource.playOnAwake = false;
         cam = Camera.main;
     }
 
@@ -68,8 +63,6 @@ public class PaddleMovement : MonoBehaviour
             {
                 ball.GetComponent<Rigidbody2D>().velocity += new Vector2(diff * angleValue, 0);
             }
-
-            audioSource.Play(); // Play collision sound
         }
         else if (collision.gameObject.CompareTag("Coin"))
         {
