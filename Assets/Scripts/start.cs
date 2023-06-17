@@ -12,7 +12,7 @@ public class start : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Input.anyKey)
         {

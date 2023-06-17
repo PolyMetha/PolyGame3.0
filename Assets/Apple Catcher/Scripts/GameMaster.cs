@@ -48,6 +48,7 @@ public class GameMaster : MonoBehaviour
                 textTimeLeft.SetText("00:00 Left"); // Update the TextMeshPro component to display 00:00
                 noMoreTimeUI.SetActive(true); // Activate the UI element for displaying time ran out message
                 noMoreTimeUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Score : " + player.score; // Update the score displayed in the UI element
+
             }
         }
     }
