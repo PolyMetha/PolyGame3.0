@@ -2,15 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System.IO;
 
-public class start : MonoBehaviour
+public class StartGame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public TextMeshProUGUI topScore;
+    private void Start()
     {
-        
-    }
+        string path = Application.dataPath + @"/TopScoreApple.txt";
+        string f = File.ReadAllText(path);
 
+        if (f != null)
+        {
+            topScore.text =  "Top Score : "+f;
+        }
+        else
+        {
+            topScore.text = "Top Score : 0";
+        }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {

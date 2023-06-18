@@ -6,7 +6,7 @@ public class Player_Script : MonoBehaviour
     //---------------------------------------------------------------------------------
     // ATTRIBUTES
     //---------------------------------------------------------------------------------
-    public TextMeshPro displayed_text; // Reference to the TextMeshPro component for displaying the score
+    public TextMeshProUGUI displayed_text; // Reference to the TextMeshPro component for displaying the score
     public GameMaster gameMaster; // Reference to the GameMaster script
     public GameObject gameOverUI; // Reference to the game over UI element
     public int score = 0; // Player's score
@@ -17,6 +17,10 @@ public class Player_Script : MonoBehaviour
     private float speed = 10; // Player's movement speed
     private float speedBoostTime = 0f; // Time when the player's speed was boosted
 
+    private Vector2 screenBounds;
+
+    private bool paused;
+
     //---------------------------------------------------------------------------------
     // METHODS
     //---------------------------------------------------------------------------------
@@ -24,6 +28,8 @@ public class Player_Script : MonoBehaviour
     {
         ref_audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
         ref_animator = GetComponent<Animator>(); // Get the Animator component
+
+        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
     }
 
     void FixedUpdate()
@@ -34,11 +40,12 @@ public class Player_Script : MonoBehaviour
         shifting();
 
         // We stop time if the space bar is pushed down
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !paused)
         {
             Time.timeScale = 0f; // Set the time scale to 0 (pause the game)
+            
         }
-        else
+        else if(Input.GetKeyDown(KeyCode.Space) && paused)
         {
             Time.timeScale = 1.0f; // Set the time scale back to 1 (resume the game)
         }
@@ -55,6 +62,16 @@ public class Player_Script : MonoBehaviour
         {
             Application.Quit(); // Quit the application when the escape key is pressed
         }
+    }
+
+    //out of bounds control
+    private void LateUpdate()
+    {
+        Vector3 playerPos = transform.position;
+        playerPos.x = Mathf.Clamp(playerPos.x, screenBounds.x*-1, screenBounds.x);
+        playerPos.y = Mathf.Clamp(playerPos.y, screenBounds.y*-1, screenBounds.y);
+        transform.position = playerPos;
+
     }
 
     void shifting()

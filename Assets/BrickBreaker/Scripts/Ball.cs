@@ -65,6 +65,7 @@ public class Ball : MonoBehaviour
         audioSourceRestart.Play();
 
         listLife = new GameObject[5];
+
         path = Application.dataPath + @"/TopScoreBrick.txt";
         string f = File.ReadAllText(path);
 

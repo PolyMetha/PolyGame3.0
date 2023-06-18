@@ -20,6 +20,8 @@ public class SpawnerScript : MonoBehaviour
     protected AudioSource ref_audioSource; // Reference to the AudioSource component
     protected float current_alpha = 1; // Current alpha value for fading out effect
 
+    private Vector2 screenBounds;
+
     //---------------------------------------------------------------------------------
     // METHODS
     //---------------------------------------------------------------------------------
@@ -30,6 +32,9 @@ public class SpawnerScript : MonoBehaviour
         ref_audioSource.loop = true; // Set audio clip to loop
         ref_audioSource.volume = 0.5f; // Set audio volume
         ref_audioSource.clip = ref_audioClip; // Set the audio clip
+
+        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+
 
         StartCoroutine(FadeOutFromWhite()); // Start the coroutine for fading out from white
     }
@@ -43,11 +48,10 @@ public class SpawnerScript : MonoBehaviour
 
         if (spawnTime <= 0)
         {
-            float randomX = Random.value * 17f - 8.5f; // Generate a random x position within a certain range
+            float randomX = Random.Range(screenBounds.x*-1, screenBounds.x); // Generate a random x position within the bounds of the screen
 
             // Randomly choose which object is going to be spawned
             float randomObject = Random.Range(0f, 1f);
-            Debug.Log(randomObject);
             if (randomObject - apple_pf.GetComponent<ObjectFalling>().spawnProba < 0)
             {
                 // Spawn an apple

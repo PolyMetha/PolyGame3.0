@@ -1,3 +1,4 @@
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -10,9 +11,9 @@ public class GameMaster : MonoBehaviour
     public GameObject noMoreTimeUI; // Reference to the UI element displayed when time runs out
     public Player_Script player; // Reference to the player script
 
-    [SerializeField] TextMeshPro textTimeLeft; // Reference to the TextMeshPro component for displaying time
+    [SerializeField] TextMeshProUGUI textTimeLeft; // Reference to the TextMeshPro component for displaying time
 
-    private float timeRemaining = 90; // The initial time remaining in seconds
+    private float timeRemaining = 10; // The initial time remaining in seconds
     private float minutes = 0; // Stores the calculated minutes from timeRemaining
     private float seconds = 0; // Stores the calculated seconds from timeRemaining
 
@@ -49,6 +50,17 @@ public class GameMaster : MonoBehaviour
                 noMoreTimeUI.SetActive(true); // Activate the UI element for displaying time ran out message
                 noMoreTimeUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Score : " + player.score; // Update the score displayed in the UI element
 
+                //set top score
+                string path = Application.dataPath + @"/TopScoreApple.txt";
+                string f = File.ReadAllText(path);
+
+                Debug.Log(player.score);
+                Debug.Log(int.Parse(f));
+
+                if(player.score > int.Parse(f))
+                {
+                    File.WriteAllText(path, player.score.ToString());
+                }
             }
         }
     }
