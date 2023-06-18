@@ -6,10 +6,16 @@ MonoImporter:
   defaultReferences:
   - textTopScore: {instanceID: 0}
   - spawn: {instanceID: 0}
-  - ballPF: {instanceID: 0}
+  - ballPF: {fileID: 1635063775555712789, guid: b35971c08fc8254429565bc4ed81bfed, type: 3}
   - textScore: {instanceID: 0}
   - gameOverCanvas: {instanceID: 0}
   - coinPrefab: {fileID: 6569139717722677452, guid: 3558107ed4a214781a2c970e4bf16fcc, type: 3}
+  - soundOnWall: {instanceID: 0}
+  - soundOnPaddle: {instanceID: 0}
+  - soundOnRestart: {instanceID: 0}
+  - soundOnFall: {instanceID: 0}
+  - audioSourceEnd: {instanceID: 0}
+  - soundOnEnd: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
