@@ -13,7 +13,7 @@ public class GameMaster : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI textTimeLeft; // Reference to the TextMeshPro component for displaying time
 
-    private float timeRemaining = 10; // The initial time remaining in seconds
+    private float timeRemaining = 90; // The initial time remaining in seconds
     private float minutes = 0; // Stores the calculated minutes from timeRemaining
     private float seconds = 0; // Stores the calculated seconds from timeRemaining
 
