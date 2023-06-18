@@ -42,6 +42,7 @@ public class SpawnerBrickBreaker : MonoBehaviour
 
     public void spawnGrid()
     {
+        Debug.Log("grid");
         // Calculate the scale and position for grid spawning
         float L_B = largeur / (colonne * 2);
         float R = 1.8f;

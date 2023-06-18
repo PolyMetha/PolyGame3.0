@@ -2324,7 +2324,7 @@ MonoBehaviour:
   score: 0
   textTopScore: {fileID: 1982838242}
   spawn: {fileID: 237572795}
-  ballPF: {fileID: 1780850680}
+  ballPF: {fileID: 1635063775555712789, guid: b35971c08fc8254429565bc4ed81bfed, type: 3}
   listLife: []
   coinHit: 0
   textScore: {fileID: 128506121}

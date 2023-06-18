@@ -37,18 +37,18 @@ public class PaddleMovement : MonoBehaviour
         Vector2 point = cam.ScreenToWorldPoint(Input.mousePosition);
 
         // Move paddle based on keyboard input
-        if (Input.GetKey(KeyCode.RightArrow) && transform.position.x < 4.6f)
+        if (Input.GetKey(KeyCode.RightArrow) && transform.position.x < 4.5f)
         {
             transform.Translate(SPEED * Time.deltaTime, 0f, 0f);
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow) && transform.position.x > -4.6f)
+        if (Input.GetKey(KeyCode.LeftArrow) && transform.position.x > -4.5f)
         {
             transform.Translate(-SPEED * Time.deltaTime, 0f, 0f);
         }
 
         // Move paddle based on mouse position
-        else if (lastPoint.x != point.x && point.x > -4.6f && point.x < 4.6f)
+        else if (lastPoint.x != point.x && point.x > -4.5f && point.x < 4.5f)
         {
             gameObject.transform.position = new Vector3(point.x, pos.y, pos.z);
         }
