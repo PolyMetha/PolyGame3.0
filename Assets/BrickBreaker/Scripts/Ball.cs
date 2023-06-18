@@ -36,7 +36,8 @@ public class Ball : MonoBehaviour
     private float velocityCST;
     private string path;
     private bool gameOverSound = false;
-
+    private Vector2 initPos;
+    private Rigidbody2D rb;
     //---------------------------------------------------------------------------------
     // METHODS
     //---------------------------------------------------------------------------------
@@ -66,14 +67,14 @@ public class Ball : MonoBehaviour
 
         listLife = new GameObject[5];
 
+        //topscore
         path = Application.dataPath + @"/TopScoreBrick.txt";
         string f = File.ReadAllText(path);
-
         topScore = int.Parse(f);
 
-        Vector2 initPos = new Vector2(4.82f, 4.43f);
+        initPos = new Vector2(4.82f, 4.43f);
 
-        for (int i = 0; i < life-1; i++)
+        for (int i = 0; i < life; i++)
         {
             // Instantiate ball game objects and set their positions
             GameObject newBall = Instantiate(ballPF);
@@ -81,7 +82,7 @@ public class Ball : MonoBehaviour
             listLife[i] = newBall;
         }
 
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector3.zero;
 
         // Set the initial position of the ball
@@ -92,7 +93,6 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
         if (isSpawning) // Respawn the ball
         {
@@ -118,8 +118,8 @@ public class Ball : MonoBehaviour
         {
             if (rb.velocity.y <= 2 && rb.velocity.y >= -2)
             {
-                rb.velocity = new Vector3(GetComponent<Rigidbody2D>().velocity.x,
-                    GetComponent<Rigidbody2D>().velocity.y * 5, 0f);
+                rb.velocity = new Vector3(rb.velocity.x,
+                    rb.velocity.y * 5, 0f);
             }
 
             if (rb.velocity.magnitude != velocityCST)
@@ -163,18 +163,17 @@ public class Ball : MonoBehaviour
         if (timer <= 0f)
         {
             isSpawning = false;
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
             // Set the velocity of the ball after respawning
             rb.velocity = new Vector3(0f, -8f - spawn.lineNumber, 0f);
             velocityCST = rb.velocity.magnitude;
+
         }
     }
 
     public void ReSpawnBall()
     {
         audioSourceRestart.Play();
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector3.zero;
 
         // Reset the position of the ball after respawning
@@ -185,21 +184,23 @@ public class Ball : MonoBehaviour
 
     public void RemoveLife()
     {
-        life--;
+
         if (life > 0)
         {
             Destroy(listLife[life-1]); // Destroy the game object representing a life
             listLife[life-1] = null;
-        }
+        }        
+        life--;
     }
 
     public void AddLife()
     {
         if (life < 5)
-        {
-            GameObject newBall = Instantiate(ballPF);
-            newBall.transform.position = listLife[life - 1].transform.position;
-            newBall.transform.Translate(-0.7f, 0, 0);
+        {    
+
+            GameObject newBall = Instantiate(ballPF);            
+
+            newBall.transform.position = listLife[life-1].transform.position+new Vector3(-0.7f,0,0);
             listLife[life] = newBall;
             life++;
         }
