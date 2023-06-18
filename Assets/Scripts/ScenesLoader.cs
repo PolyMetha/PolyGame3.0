@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ScenesLoader : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject player;
 
     public IEnumerator LoadBirdCoroutine()
     {
@@ -45,6 +47,8 @@ public class ScenesLoader : MonoBehaviour
 
     public void LoadBrick()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        Debug.Log(player.gameObject.name);
         StartCoroutine(LoadBrickCoroutine());
     }
 

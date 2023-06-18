@@ -27,6 +27,7 @@ public class PaddleMovement : MonoBehaviour
         audioSource.clip = soundToPlay;
         audioSource.playOnAwake = false;
         cam = Camera.main;
+        ball = GameObject.FindGameObjectWithTag("Player").GetComponent<Ball>();
     }
 
     // Update is called once per frame

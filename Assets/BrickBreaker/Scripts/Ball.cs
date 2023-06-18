@@ -14,6 +14,8 @@ public class Ball : MonoBehaviour
     public GameObject ballPF;
     public GameObject[] listLife;
 
+    private Rigidbody2D rb;
+
     [SerializeField] TextMeshPro textScore;
     [SerializeField] Canvas gameOverCanvas;
 
@@ -36,6 +38,7 @@ public class Ball : MonoBehaviour
 
         Vector2 initPos = new Vector2(4.82f, 4.43f);
 
+        /*
         for (int i = 0; i < life; i++)
         {
             // Instantiate ball game objects and set their positions
@@ -43,8 +46,8 @@ public class Ball : MonoBehaviour
             newBall.transform.position = new Vector3(initPos.x - i * 0.7f, initPos.y, -3);
             listLife[i] = newBall;
         }
-
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        */
+        rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector3.zero;
 
         // Set the initial position of the ball
@@ -55,7 +58,6 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
         if (isSpawning) // Respawn the ball
         {
@@ -109,17 +111,15 @@ public class Ball : MonoBehaviour
         if (timer <= 0f)
         {
             isSpawning = false;
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
             // Set the velocity of the ball after respawning
-            rb.velocity = new Vector3(0f, -8f - spawn.lineNumber, 0f);
+            rb.velocity = new Vector3(0f, -8f, 0f);
             velocityCST = rb.velocity.magnitude;
         }
     }
 
     public void ReSpawnBall()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector3.zero;
 
         // Reset the position of the ball after respawning
