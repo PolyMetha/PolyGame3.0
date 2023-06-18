@@ -196,7 +196,7 @@ public class Ball : MonoBehaviour
     public void AddLife()
     {
         if (life < 5)
-        {}  
+        { 
 
             GameObject newBall = Instantiate(ballPF);            
 
