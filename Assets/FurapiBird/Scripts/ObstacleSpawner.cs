@@ -8,6 +8,7 @@ public class ObstacleSpawner : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    public GameObject controls;
     [SerializeField] GameObject pipe;
     private float timer = 1f;
     private float timerSpeed = 30f;
@@ -17,6 +18,9 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] Bird b;
     [HideInInspector] public int score = 0;
     AudioSource music;
+
+    private float timeRemaining = 20;
+    private bool isDestroyed = false;
 
     void Start()
     {
@@ -29,6 +33,14 @@ public class ObstacleSpawner : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        timeRemaining -= Time.deltaTime;
+
+        if (timeRemaining <= 15 && !isDestroyed)
+        {
+            isDestroyed = true;
+            Destroy(controls);
+        }
+
         timer -= Time.deltaTime;
         timerSpeed -= Time.deltaTime;   
 
