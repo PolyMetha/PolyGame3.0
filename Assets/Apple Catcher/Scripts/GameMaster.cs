@@ -12,6 +12,7 @@ public class GameMaster : MonoBehaviour
     public bool timerIsRunning = false; // Flag indicating whether the timer is running
     public GameObject noMoreTimeUI; // Reference to the UI element displayed when time runs out
     public Player_Script player; // Reference to the player script
+    public GameObject controls;
 
     [SerializeField] TextMeshProUGUI textTimeLeft; // Reference to the TextMeshPro component for displaying time
 
@@ -52,6 +53,14 @@ public class GameMaster : MonoBehaviour
                 noMoreTimeUI.SetActive(true); // Activate the UI element for displaying time ran out message
                 noMoreTimeUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Score : " + player.score; // Update the score displayed in the UI element
 
+            }
+            if (timeRemaining > 85)
+            {
+                controls.SetActive(true);
+            }
+            else
+            {
+                controls.SetActive(false);
             }
         }
         else
