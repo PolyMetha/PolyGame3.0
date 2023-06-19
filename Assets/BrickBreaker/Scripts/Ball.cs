@@ -38,6 +38,7 @@ public class Ball : MonoBehaviour
     private bool gameOverSound = false;
     private Vector2 initPos;
     private Rigidbody2D rb;
+
     //---------------------------------------------------------------------------------
     // METHODS
     //---------------------------------------------------------------------------------
@@ -93,7 +94,6 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate()
     {
-
         if (isSpawning) // Respawn the ball
         {
             RestartBall();
