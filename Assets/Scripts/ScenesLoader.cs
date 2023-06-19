@@ -24,6 +24,14 @@ public class ScenesLoader : MonoBehaviour
         audioSourceBackground.Play();
     }
 
+    private void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit(); // Quit the application when the escape key is pressed
+        }
+    }
+
     public IEnumerator LoadBirdCoroutine()
     {
         audioSourceBackground.Stop();
