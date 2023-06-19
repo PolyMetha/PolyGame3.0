@@ -12,8 +12,8 @@ public class GameMaster : MonoBehaviour
     public bool timerIsRunning = false; // Flag indicating whether the timer is running
     public GameObject noMoreTimeUI; // Reference to the UI element displayed when time runs out
     public Player_Script player; // Reference to the player script
-    public GameObject controls;
 
+    [SerializeField] GameObject controls;
     [SerializeField] TextMeshProUGUI textTimeLeft; // Reference to the TextMeshPro component for displaying time
 
     private float timeRemaining = 90; // The initial time remaining in seconds

@@ -9,9 +9,10 @@ public class SpawnerBrickBreaker : MonoBehaviour
     //---------------------------------------------------------------------------------
     [SerializeField] GameObject brick;
     [SerializeField] GameObject brickG;
+    [SerializeField] GameObject controls;
 
     public Ball ball;
-    public int lineNumber = 0;
+    public int lineNumber = 1;
 
     private float brick_width = 1.76f;
     private float brick_height = 0.92f;
@@ -19,6 +20,7 @@ public class SpawnerBrickBreaker : MonoBehaviour
     private int colonne = 7;
     public int createdBricks = 0;
     private float proba_bricks = 0.6f;
+    private float timeRemaining = 20;
 
     //---------------------------------------------------------------------------------
     // METHODS
@@ -32,12 +34,20 @@ public class SpawnerBrickBreaker : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        timeRemaining -= Time.deltaTime;
+        if (timeRemaining > 10)
+        {
+            controls.SetActive(true);
+        }
+        else
+        {
+            controls.SetActive(false);
+        }
         // Check if the score reached a certain threshold to add life, increase line number, spawn a new grid, and respawn the ball
         if (ball.score >= createdBricks * 50 + ball.coinHit * 100)
         {
-            Debug.Log(createdBricks * 50 + ball.coinHit * 100 + " " + ball.score);
             ball.AddLife();
-            lineNumber++;
+            lineNumber += 2;
             spawnGrid();
         }
     }
