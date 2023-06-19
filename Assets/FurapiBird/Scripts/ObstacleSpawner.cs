@@ -12,15 +12,17 @@ public class ObstacleSpawner : MonoBehaviour
     private float timer = 1f;
     private float timerSpeed = 30f;
     public float pipeSpeed = 4f;
-    public TextMeshPro text;
-    public TextMeshPro UI;
+    public TextMeshProUGUI scoreText;
+    public GameObject commandsText;
     [SerializeField] Bird b;
-    [HideInInspector] public int score = 0;
+    public int score = 0;
+    public bool isDead = false;
+    public bool deadCoroutineStarted = false;
     AudioSource music;
 
     void Start()
     {
-        UI.fontSize = 0;
+        commandsText.SetActive(false);
         music = GetComponent<AudioSource>();
         b = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
         b.oS = this;
@@ -52,12 +54,18 @@ public class ObstacleSpawner : MonoBehaviour
         }
 
         
-        text.SetText("Score : " + score);
+        scoreText.SetText("Score : " + score);
         if (!b.isAlive)
         {
-            UI.fontSize = 4;
+            commandsText.SetActive(true);
             music.Pause();
 
+        }
+
+        if (isDead && deadCoroutineStarted == false)
+        {
+            StartCoroutine("WhenDead");
+            deadCoroutineStarted = true;
         }
     }
 
@@ -69,6 +77,7 @@ public class ObstacleSpawner : MonoBehaviour
             yield return null;
         }
 
+        Destroy(b.gameObject);
 
         if (Input.GetKeyDown(KeyCode.M))
         {

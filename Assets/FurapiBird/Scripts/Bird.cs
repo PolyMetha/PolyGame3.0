@@ -14,8 +14,6 @@ public class Bird : MonoBehaviour
     public ObstacleSpawner oS;
     private AudioSource audiosource;
     public int topScore;
-
-    private string path;
     
     void Start()
     {
@@ -71,6 +69,11 @@ public class Bird : MonoBehaviour
             audiosource.Play(); 
             isAlive = false;
             oS.pipeSpeed = 0;
+            if (!oS.isDead)
+            {
+                oS.isDead = true;
+            }
+            this.GetComponent<Collider2D>().enabled = false;
 
             TopScore();            
             animator.SetTrigger("IsDead");
@@ -83,13 +86,16 @@ public class Bird : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            oS.StartCoroutine("WhenDead");
             audiosource.Play();
             isAlive = false;
             oS.pipeSpeed = 0;
+            if (!oS.isDead)
+            {
+                oS.isDead = true;
+            }
+
 
             TopScore();            
-            Destroy(gameObject);
         }
     }
 
