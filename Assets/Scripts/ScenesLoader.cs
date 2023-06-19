@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +21,14 @@ public class ScenesLoader : MonoBehaviour
         audioSourceBackground.volume = 0.5f;
         audioSourceBackground.clip = soundOnBackground;
         audioSourceBackground.Play();
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit(); // Quit the application when the escape key is pressed
+        }
     }
 
     public IEnumerator LoadBirdCoroutine()

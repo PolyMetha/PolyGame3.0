@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Fader : MonoBehaviour
@@ -16,12 +15,6 @@ public class Fader : MonoBehaviour
         StartCoroutine(FadeSceneIn());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     IEnumerator FadeSceneIn()
     {
         while(alpha > 0)
@@ -30,8 +23,6 @@ public class Fader : MonoBehaviour
             spriteRenderer.color = new Color(1, 1, 1, alpha);
             yield return null;
         }
-
-        
     }
 
     IEnumerator FadeSceneOut()
@@ -42,8 +33,6 @@ public class Fader : MonoBehaviour
             spriteRenderer.color = new Color(1, 1, 1, alpha);
             yield return null;
         }
-
-
     }
 
     public void StartFadeOut()

@@ -1,6 +1,8 @@
+using System.Collections;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
@@ -11,11 +13,13 @@ public class GameMaster : MonoBehaviour
     public GameObject noMoreTimeUI; // Reference to the UI element displayed when time runs out
     public Player_Script player; // Reference to the player script
 
+    [SerializeField] GameObject controls;
     [SerializeField] TextMeshProUGUI textTimeLeft; // Reference to the TextMeshPro component for displaying time
 
     private float timeRemaining = 10; // The initial time remaining in seconds
     private float minutes = 0; // Stores the calculated minutes from timeRemaining
     private float seconds = 0; // Stores the calculated seconds from timeRemaining
+    private bool isDestroyed = false;
 
     //---------------------------------------------------------------------------------
     // METHODS
@@ -49,19 +53,40 @@ public class GameMaster : MonoBehaviour
                 textTimeLeft.SetText("00:00 Left"); // Update the TextMeshPro component to display 00:00
                 noMoreTimeUI.SetActive(true); // Activate the UI element for displaying time ran out message
                 noMoreTimeUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Score : " + player.score; // Update the score displayed in the UI element
+            }
 
-                //set top score
-                string path = Application.dataPath + @"/TopScoreApple.txt";
-                string f = File.ReadAllText(path);
-
-                Debug.Log(player.score);
-                Debug.Log(int.Parse(f));
+            if (timeRemaining <= 83 && !isDestroyed)
+            {
+                isDestroyed = true;
+                Destroy(controls);
+            }
+        }
+        else
+        {
+                string path = Application.dataPath + "/StreamingAssets/TopScoreApple.txt";
+                string fileContent = File.ReadAllText(path);
+                int topScore = int.Parse(fileContent);
 
                 if(player.score > int.Parse(f))
                 {
                     File.WriteAllText(path, player.score.ToString());
                 }
-            }
         }
     }
-}
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            StartCoroutine(LoadMenuCoroutine()); // Quit the application when the escape key is pressed
+        }
+    }
+
+    public IEnumerator LoadMenuCoroutine()
+    {
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
+        while (!asyncload.isDone)
+        {
+            yield return null;
+        }
+    }
+} 

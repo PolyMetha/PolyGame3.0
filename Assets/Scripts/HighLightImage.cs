@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HighLightImage : MonoBehaviour
@@ -9,17 +7,17 @@ public class HighLightImage : MonoBehaviour
     SpriteRenderer spriteRenderer;  
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();  
-        spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
     }
 
     private void OnMouseOver()
     {
-        spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+        spriteRenderer.color = new Color(1f, 1f, 1f, 1.5f);
     }
 
     private void OnMouseExit()
     {
-        spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+        spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
     }
 }

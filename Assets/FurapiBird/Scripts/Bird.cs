@@ -25,7 +25,7 @@ public class Bird : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
+    {
         if (!isAlive)
         {
             return;
@@ -60,6 +60,19 @@ public class Bird : MonoBehaviour
             {
                 transform.Rotate(new Vector3(0, 0, -transform.rotation.z));
             }
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            StartCoroutine(LoadMenuCoroutine()); // Quit the application when the escape key is pressed
+        }
+    }
+
+    public IEnumerator LoadMenuCoroutine()
+    {
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
+        while (!asyncload.isDone)
+        {
+            yield return null;
         }
     }
 
