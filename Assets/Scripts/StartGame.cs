@@ -8,11 +8,9 @@ using System.IO;
 public class StartGame : MonoBehaviour
 {
     public TextMeshProUGUI topScore;
-    private string path;
     private void Start()
     {
-        //topscore
-        path = Application.dataPath + "/StreamingAssets/TopScoreApple.txt";
+        string path = Application.dataPath + @"/TopScoreApple.txt";
         string f = File.ReadAllText(path);
 
         if (f != null)

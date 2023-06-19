@@ -7,6 +7,7 @@ using TMPro;
 
 public class GameLoad : MonoBehaviour
 {
+
     private string path;
     public TextMeshPro topScoreText;
     public GameObject bird;
@@ -14,11 +15,12 @@ public class GameLoad : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        path = Application.dataPath + "/StreamingAssets/TopScoreBird.txt";
-        string fileContent = File.ReadAllText(path);
-
-        int topScore = int.Parse(fileContent);
+        //setting top score
+        path = Application.dataPath + "/TopScoreBird.txt";
+        string f = File.ReadAllText(path);
+        int topScore = int.Parse(f);
         topScoreText.SetText("TopScore : " + topScore);
+
     }
 
     // Update is called once per frame

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class ObstacleSpawner : MonoBehaviour
 {
@@ -25,7 +24,6 @@ public class ObstacleSpawner : MonoBehaviour
         commandsText.SetActive(false);
         music = GetComponent<AudioSource>();
         b = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
-        b.oS = this;
     }
 
     // Update is called once per frame
