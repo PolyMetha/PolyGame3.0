@@ -21,6 +21,7 @@ public class SpawnerBrickBreaker : MonoBehaviour
     public int createdBricks = 0;
     private float proba_bricks = 0.6f;
     private float timeRemaining = 20;
+    private bool isDestroyed = false;
 
     //---------------------------------------------------------------------------------
     // METHODS
@@ -35,14 +36,13 @@ public class SpawnerBrickBreaker : MonoBehaviour
     void FixedUpdate()
     {
         timeRemaining -= Time.deltaTime;
-        if (timeRemaining > 10)
+
+        if (timeRemaining <= 10 && !isDestroyed)
         {
-            controls.SetActive(true);
+            isDestroyed = true;
+            Destroy(controls);
         }
-        else
-        {
-            controls.SetActive(false);
-        }
+
         // Check if the score reached a certain threshold to add life, increase line number, spawn a new grid, and respawn the ball
         if (ball.score >= createdBricks * 50 + ball.coinHit * 100)
         {

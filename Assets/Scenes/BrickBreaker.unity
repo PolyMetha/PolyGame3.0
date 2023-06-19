@@ -377,7 +377,7 @@ MonoBehaviour:
   brickG: {fileID: 758009575721148294, guid: 9b979528f903aa0469f694138debcda7, type: 3}
   controls: {fileID: 1081822164}
   ball: {fileID: 1780850685}
-  lineNumber: 0
+  lineNumber: 1
   createdBricks: 0
 --- !u!1 &312566535
 GameObject:

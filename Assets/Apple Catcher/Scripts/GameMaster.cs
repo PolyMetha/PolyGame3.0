@@ -19,6 +19,7 @@ public class GameMaster : MonoBehaviour
     private float timeRemaining = 90; // The initial time remaining in seconds
     private float minutes = 0; // Stores the calculated minutes from timeRemaining
     private float seconds = 0; // Stores the calculated seconds from timeRemaining
+    private bool isDestroyed = false;
 
     //---------------------------------------------------------------------------------
     // METHODS
@@ -54,13 +55,10 @@ public class GameMaster : MonoBehaviour
                 noMoreTimeUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Score : " + player.score; // Update the score displayed in the UI element
 
             }
-            if (timeRemaining > 85)
+            if (timeRemaining <= 83 && !isDestroyed)
             {
-                controls.SetActive(true);
-            }
-            else
-            {
-                controls.SetActive(false);
+                isDestroyed = true;
+                Destroy(controls);
             }
         }
         else
