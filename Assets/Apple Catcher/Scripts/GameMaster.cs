@@ -16,7 +16,7 @@ public class GameMaster : MonoBehaviour
     [SerializeField] GameObject controls;
     [SerializeField] TextMeshProUGUI textTimeLeft; // Reference to the TextMeshPro component for displaying time
 
-    private float timeRemaining = 10; // The initial time remaining in seconds
+    private float timeRemaining = 90; // The initial time remaining in seconds
     private float minutes = 0; // Stores the calculated minutes from timeRemaining
     private float seconds = 0; // Stores the calculated seconds from timeRemaining
     private bool isDestroyed = false;
@@ -67,7 +67,7 @@ public class GameMaster : MonoBehaviour
                 string fileContent = File.ReadAllText(path);
                 int topScore = int.Parse(fileContent);
 
-                if(player.score > int.Parse(f))
+                if(player.score > int.Parse(fileContent))
                 {
                     File.WriteAllText(path, player.score.ToString());
                 }
