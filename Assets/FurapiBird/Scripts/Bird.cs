@@ -11,7 +11,7 @@ public class Bird : MonoBehaviour
 
     public bool isAlive = true;
     private Animator animator;
-    [SerializeField] ObstacleSpawner oS;
+    public ObstacleSpawner oS;
     private AudioSource audiosource;
     public int topScore;
 
@@ -63,32 +63,33 @@ public class Bird : MonoBehaviour
         }
     }
 
+    //obstacles pipes
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            animator.SetTrigger("IsDead");
-            StartCoroutine("WhenDead"); 
             audiosource.Play(); 
             isAlive = false;
             oS.pipeSpeed = 0;
 
-            TopScore();
+            TopScore();            
+            animator.SetTrigger("IsDead");
         }
 
     }
 
+    //obstacle screen limits
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            animator.SetTrigger("IsDead");
-            StartCoroutine("WhenDead");
+            oS.StartCoroutine("WhenDead");
             audiosource.Play();
             isAlive = false;
             oS.pipeSpeed = 0;
 
-            TopScore();
+            TopScore();            
+            Destroy(gameObject);
         }
     }
 
@@ -103,58 +104,14 @@ public class Bird : MonoBehaviour
             return false;
         }
     }
-    IEnumerator WhenDead()
-    {
-        
-        while(!Input.GetKeyDown(KeyCode.M) && !Input.GetKeyDown(KeyCode.R))
-        {
-                Debug.Log("Waiting");
-                yield return null;
-        }
-        
-        
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            StartCoroutine(loadMenu());
-            Debug.Log("Menu");
-
-        }else if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(loadGame());
-            Debug.Log("Restart");
-
-        }
-        
-    }
-
-    IEnumerator loadGame()
-    {
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("FurapiBirdLoad");
-        while (!asyncload.isDone)
-        {
-            yield return null;
-        }
-    }
-
-    IEnumerator loadMenu()
-    {
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
-        while (!asyncload.isDone)
-        {
-            yield return null;
-        }
-    }
 
     public void TopScore()
     {
-        string f;
-
         if (oS.score > topScore)
         {
-            topScore = oS.score;
-            f = topScore.ToString();
+            string path = Application.dataPath + "/StreamingAssets/TopScoreBird.txt";
+            string f = oS.score.ToString();
             File.WriteAllText(path, f);
-
         }
     }
 

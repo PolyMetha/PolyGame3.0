@@ -69,10 +69,11 @@ public class Ball : MonoBehaviour
         listLife = new GameObject[5];
 
         //topscore
-        path = Path.Combine(Application.persistentDataPath, "TopScoreBrick.txt");
-        string f = File.ReadAllText(path);
-        topScore = int.Parse(f);
+        path = Application.dataPath + "/StreamingAssets/TopScoreBrick.txt";
+        string fileContent = File.ReadAllText(path);
+        topScore = int.Parse(fileContent);
 
+        Debug.Log(topScore);
 
         initPos = new Vector2(4.82f, 4.43f);
 
@@ -221,11 +222,7 @@ public class Ball : MonoBehaviour
         {
             topScore = score;
             f = topScore.ToString();
-
-            using (StreamWriter writer = new StreamWriter(path, false))
-            {
-                writer.Write(f);
-            }
+            File.WriteAllText(path, f);
         }
         textTopScore.SetText("TopScore : " + topScore);
         

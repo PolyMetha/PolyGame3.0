@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ObstacleSpawner : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class ObstacleSpawner : MonoBehaviour
         UI.fontSize = 0;
         music = GetComponent<AudioSource>();
         b = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
+        b.oS = this;
     }
 
     // Update is called once per frame
@@ -56,6 +58,48 @@ public class ObstacleSpawner : MonoBehaviour
             UI.fontSize = 4;
             music.Pause();
 
+        }
+    }
+
+    public IEnumerator WhenDead()
+    {
+
+        while (!Input.GetKeyDown(KeyCode.M) && !Input.GetKeyDown(KeyCode.R))
+        {
+            yield return null;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            StartCoroutine(loadMenu());
+            Debug.Log("Menu");
+
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(loadGame());
+            Debug.Log("Restart");
+
+        }
+
+    }
+
+    IEnumerator loadGame()
+    {
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("FurapiBirdLoad");
+        while (!asyncload.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    IEnumerator loadMenu()
+    {
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
+        while (!asyncload.isDone)
+        {
+            yield return null;
         }
     }
 }

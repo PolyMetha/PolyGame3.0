@@ -154,13 +154,20 @@
             "ignore": false,
             "defaultInstantiationMode": 0,
             "supportsModification": true
+        },
+        {
+            "userAdded": true,
+            "type": "UnityEngine.TextAsset",
+            "ignore": false,
+            "defaultInstantiationMode": 0,
+            "supportsModification": true
         }
     ],
     "defaultDependencyTypeInfo": {
         "userAdded": false,
         "type": "<default_scene_template_dependencies>",
         "ignore": false,
-        "defaultInstantiationMode": 1,
+        "defaultInstantiationMode": 0,
         "supportsModification": true
     },
     "newSceneOverride": 0
