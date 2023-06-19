@@ -2,43 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ObstacleSpawner : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public GameObject controls;
     [SerializeField] GameObject pipe;
     private float timer = 1f;
     private float timerSpeed = 30f;
     public float pipeSpeed = 4f;
-    public TextMeshPro text;
-    public TextMeshPro UI;
+    public TextMeshProUGUI scoreText;
+    public GameObject commandsText;
     [SerializeField] Bird b;
-    [HideInInspector] public int score = 0;
+    public int score = 0;
+    public bool isDead = false;
+    public bool deadCoroutineStarted = false;
     AudioSource music;
-
-    private float timeRemaining = 20;
-    private bool isDestroyed = false;
 
     void Start()
     {
-        UI.fontSize = 0;
+        commandsText.SetActive(false);
         music = GetComponent<AudioSource>();
         b = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
+        b.oS = this;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        timeRemaining -= Time.deltaTime;
-
-        if (timeRemaining <= 15 && !isDestroyed)
-        {
-            isDestroyed = true;
-            Destroy(controls);
-        }
-
         timer -= Time.deltaTime;
         timerSpeed -= Time.deltaTime;   
 
@@ -62,12 +54,61 @@ public class ObstacleSpawner : MonoBehaviour
         }
 
         
-        text.SetText("Score : " + score);
+        scoreText.SetText("Score : " + score);
         if (!b.isAlive)
         {
-            UI.fontSize = 4;
+            commandsText.SetActive(true);
             music.Pause();
 
+        }
+
+        if (isDead && deadCoroutineStarted == false)
+        {
+            StartCoroutine("WhenDead");
+            deadCoroutineStarted = true;
+        }
+    }
+
+    public IEnumerator WhenDead()
+    {
+
+        while (!Input.GetKeyDown(KeyCode.M) && !Input.GetKeyDown(KeyCode.R))
+        {
+            yield return null;
+        }
+
+        Destroy(b.gameObject);
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            StartCoroutine(loadMenu());
+            Debug.Log("Menu");
+
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(loadGame());
+            Debug.Log("Restart");
+
+        }
+
+    }
+
+    IEnumerator loadGame()
+    {
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("FurapiBirdLoad");
+        while (!asyncload.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    IEnumerator loadMenu()
+    {
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
+        while (!asyncload.isDone)
+        {
+            yield return null;
         }
     }
 }

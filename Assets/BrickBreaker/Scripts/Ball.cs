@@ -69,7 +69,7 @@ public class Ball : MonoBehaviour
         listLife = new GameObject[5];
 
         //topscore
-        path = Application.dataPath + @"/TopScoreBrick.txt";
+        path = Application.dataPath + "/StreamingAssets/TopScoreBrick.txt";
         string f = File.ReadAllText(path);
         topScore = int.Parse(f);
 

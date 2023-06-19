@@ -9,23 +9,21 @@ public class ScoreCount : MonoBehaviour
 
     [HideInInspector] public ObstacleSpawner oS;
     private AudioSource audiosource;
+    private bool scoreTook = false;
     
     void Start()
     {
         audiosource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        audiosource.Play(); 
-        oS.score ++;
+        if (!scoreTook)
+        {
+            audiosource.Play(); 
+            oS.score ++;
+            scoreTook = true;
+            Debug.Log(oS.score);
+        }
     }
-
-    
 }

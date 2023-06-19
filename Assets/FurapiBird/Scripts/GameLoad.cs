@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
@@ -7,7 +6,6 @@ using TMPro;
 
 public class GameLoad : MonoBehaviour
 {
-
     private string path;
     public TextMeshPro topScoreText;
     public GameObject bird;
@@ -15,12 +13,10 @@ public class GameLoad : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //setting top score
-        path = Application.dataPath + "/TopScoreBird.txt";
-        string f = File.ReadAllText(path);
-        int topScore = int.Parse(f);
+        path = Application.dataPath + "/StreamingAssets/TopScoreBird.txt";
+        string fileContent = File.ReadAllText(path);
+        int topScore = int.Parse(fileContent);
         topScoreText.SetText("TopScore : " + topScore);
-
     }
 
     // Update is called once per frame
@@ -38,6 +34,8 @@ public class GameLoad : MonoBehaviour
 
     IEnumerator loadGame()
     {
+        string fileContent = File.ReadAllText(path);
+        int topScore = int.Parse(fileContent);
         AsyncOperation asyncload = SceneManager.LoadSceneAsync("FurapiBird");
         while (!asyncload.isDone)
         {

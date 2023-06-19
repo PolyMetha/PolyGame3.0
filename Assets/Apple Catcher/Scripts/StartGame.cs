@@ -10,7 +10,7 @@ public class StartGame : MonoBehaviour
     public TextMeshProUGUI topScore;
     private void Start()
     {
-        string path = Application.dataPath + @"/TopScoreApple.txt";
+        string path = Application.dataPath + "/StreamingAssets/TopScoreApple.txt";
         string f = File.ReadAllText(path);
 
         if (f != null)
