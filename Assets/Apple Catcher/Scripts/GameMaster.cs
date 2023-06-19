@@ -1,6 +1,8 @@
+using System.Collections;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
@@ -63,6 +65,22 @@ public class GameMaster : MonoBehaviour
                     string fe = player.score.ToString();
                     File.WriteAllText(path, player.score.ToString());
                 }
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            StartCoroutine(LoadMenuCoroutine()); // Quit the application when the escape key is pressed
+        }
+    }
+
+    public IEnumerator LoadMenuCoroutine()
+    {
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
+        while (!asyncload.isDone)
+        {
+            yield return null;
         }
     }
 }

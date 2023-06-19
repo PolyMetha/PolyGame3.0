@@ -58,10 +58,7 @@ public class Player_Script : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255); // Reset the player's color
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit(); // Quit the application when the escape key is pressed
-        }
+        
     }
 
     //out of bounds control

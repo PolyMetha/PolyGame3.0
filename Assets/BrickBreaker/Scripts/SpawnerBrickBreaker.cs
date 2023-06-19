@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnerBrickBreaker : MonoBehaviour
 {
@@ -31,12 +33,29 @@ public class SpawnerBrickBreaker : MonoBehaviour
     void FixedUpdate()
     {
         // Check if the score reached a certain threshold to add life, increase line number, spawn a new grid, and respawn the ball
-        if (ball.score >= createdBricks * 50 + ball.coinHit*100)
+        if (ball.score >= createdBricks * 50 + ball.coinHit * 100)
         {
             Debug.Log(createdBricks * 50 + ball.coinHit * 100 + " " + ball.score);
             ball.AddLife();
             lineNumber++;
             spawnGrid();
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            StartCoroutine(LoadMenuCoroutine()); // Quit the application when the escape key is pressed
+        }
+    }
+
+    public IEnumerator LoadMenuCoroutine()
+    {
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
+        while (!asyncload.isDone)
+        {
+            yield return null;
         }
     }
 
