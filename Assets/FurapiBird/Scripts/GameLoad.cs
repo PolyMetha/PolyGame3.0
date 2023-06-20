@@ -34,8 +34,6 @@ public class GameLoad : MonoBehaviour
 
     IEnumerator loadGame()
     {
-        string fileContent = File.ReadAllText(path);
-        int topScore = int.Parse(fileContent);
         AsyncOperation asyncload = SceneManager.LoadSceneAsync("FurapiBird");
         while (!asyncload.isDone)
         {

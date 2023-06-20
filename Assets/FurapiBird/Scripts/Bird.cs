@@ -107,7 +107,6 @@ public class Bird : MonoBehaviour
                 oS.isDead = true;
             }
 
-
             TopScore();            
         }
     }
@@ -126,9 +125,14 @@ public class Bird : MonoBehaviour
 
     public void TopScore()
     {
+        string path = Application.dataPath + "/StreamingAssets/TopScoreBird.txt";
+        string fileContent = File.ReadAllText(path);
+        int topScore = int.Parse(fileContent);
+
+        Debug.Log("Top score : " + topScore);
+        Debug.Log("OS score : " + oS.score);
         if (oS.score > topScore)
         {
-            string path = Application.dataPath + "/StreamingAssets/TopScoreBird.txt";
             string f = oS.score.ToString();
             File.WriteAllText(path, f);
         }
