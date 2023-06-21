@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 168293383}
   m_Layer: 0
   m_Name: Obstacle_spawner
-  m_TagString: Untagged
+  m_TagString: Obstacle Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,14 +289,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23646f39557202444acdc34d55ab675b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipe: {fileID: 1184837501318935835, guid: aa9f2bc9056a9a44a8f9bb32cba40fa3, type: 3}
   pipeSpeed: 4
-  scoreText: {fileID: 892875404}
-  commandsText: {fileID: 237320435}
-  b: {fileID: 0}
   score: 0
   isDead: 0
   deadCoroutineStarted: 0
+  scoreText: {fileID: 892875404}
+  commandsText: {fileID: 237320435}
+  pipe: {fileID: 1184837501318935835, guid: aa9f2bc9056a9a44a8f9bb32cba40fa3, type: 3}
+  bird: {fileID: 0}
 --- !u!4 &168293382
 Transform:
   m_ObjectHideFlags: 0

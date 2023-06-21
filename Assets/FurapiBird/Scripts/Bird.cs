@@ -98,7 +98,7 @@ public class Bird : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle")
         {
             audioSourceImpact.Play();
-            isAlive = false;
+
             oS.pipeSpeed = 0;
             if (!oS.isDead)
             {
@@ -106,7 +106,8 @@ public class Bird : MonoBehaviour
             }
             this.GetComponent<Collider2D>().enabled = false;
 
-            TopScore();            
+            TopScore();             
+            isAlive = false;           
             animator.SetTrigger("IsDead");
         }
 
@@ -117,7 +118,7 @@ public class Bird : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            isAlive = false;
+
             oS.pipeSpeed = 0;
             if (!oS.isDead)
             {
@@ -125,7 +126,8 @@ public class Bird : MonoBehaviour
                 audioSourceImpact.Play();
             }
 
-            TopScore();
+            TopScore();            
+            isAlive = false;
             animator.SetTrigger("IsDead");
         }
     }
@@ -144,6 +146,7 @@ public class Bird : MonoBehaviour
 
     public void TopScore()
     {
+        if (!isAlive) return;
         audioSourceDeath.Play();
         string path = Application.dataPath + "/StreamingAssets/TopScoreBird.txt";
         string fileContent = File.ReadAllText(path);

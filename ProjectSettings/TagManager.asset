@@ -14,6 +14,8 @@ TagManager:
   - Ball
   - Wall
   - Paddle
+  - Obstacle
+  - Obstacle Spawner
   layers:
   - Default
   - TransparentFX

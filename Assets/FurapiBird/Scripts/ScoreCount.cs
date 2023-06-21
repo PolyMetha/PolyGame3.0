@@ -7,23 +7,25 @@ public class ScoreCount : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [HideInInspector] public ObstacleSpawner oS;
-    private AudioSource audiosource;
+    public ObstacleSpawner oS;
+    private AudioSource audioSource;
     private bool scoreTook = false;
-    
+    [SerializeField] Bird bird;
+
+
     void Start()
     {
-        audiosource = GetComponent<AudioSource>();
+        bird = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!scoreTook)
+        if (!scoreTook && bird.isAlive)
         {
-            audiosource.Play(); 
+            audioSource.Play(); 
             oS.score ++;
             scoreTook = true;
-            Debug.Log(oS.score);
         }
     }
 }

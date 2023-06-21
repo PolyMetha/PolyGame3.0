@@ -6,13 +6,13 @@ public class Player_Script : MonoBehaviour
     //---------------------------------------------------------------------------------
     // ATTRIBUTES
     //---------------------------------------------------------------------------------
-    public TextMeshProUGUI displayed_text; // Reference to the TextMeshPro component for displaying the score
+    public TextMeshProUGUI displayedText; // Reference to the TextMeshPro component for displaying the score
     public GameMaster gameMaster; // Reference to the GameMaster script
     public GameObject gameOverUI; // Reference to the game over UI element
     public int score = 0; // Player's score
 
-    protected AudioSource ref_audioSource; // Reference to the AudioSource component
-    protected Animator ref_animator; // Reference to the Animator component
+    protected AudioSource refAudioSource; // Reference to the AudioSource component
+    protected Animator refAnimator; // Reference to the Animator component
 
     private float speed = 10; // Player's movement speed
     private float speedBoostTime = 0f; // Time when the player's speed was boosted
@@ -26,8 +26,8 @@ public class Player_Script : MonoBehaviour
     //---------------------------------------------------------------------------------
     void Start()
     {
-        ref_audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
-        ref_animator = GetComponent<Animator>(); // Get the Animator component
+        refAudioSource = GetComponent<AudioSource>(); // Get the AudioSource component
+        refAnimator = GetComponent<Animator>(); // Get the Animator component
 
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
     }
@@ -77,7 +77,7 @@ public class Player_Script : MonoBehaviour
         int inputX = (int)Input.GetAxisRaw("Horizontal");
 
         // Inform animator: Are we moving?
-        ref_animator.SetBool("isMoving", inputX != 0);
+        refAnimator.SetBool("isMoving", inputX != 0);
 
         // Move with the speed found
         transform.Translate(speed * inputX * Time.deltaTime, 0, 0);
@@ -112,8 +112,8 @@ public class Player_Script : MonoBehaviour
             score += 5; // Increase the score by 5
         }
 
-        displayed_text.SetText("Score : " + score); // Update the score displayed in the TextMeshPro component
+        displayedText.SetText("Score : " + score); // Update the score displayed in the TextMeshPro component
 
-        ref_audioSource.Play(); // Play the audio
+        refAudioSource.Play(); // Play the audio
     }
 }

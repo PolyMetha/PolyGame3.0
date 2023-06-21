@@ -7,18 +7,18 @@ public class SpawnerScript : MonoBehaviour
     //---------------------------------------------------------------------------------
     // ATTRIBUTES
     //---------------------------------------------------------------------------------
-    public AudioClip ref_audioClip; // Reference to the audio clip
-    public SpriteRenderer fader_renderer; // Reference to the sprite renderer for fading out effect
-    public GameObject apple_pf; // Prefab for spawning an apple
-    public GameObject banana_pf; // Prefab for spawning a banana
-    public GameObject rottenApple_pf; // Prefab for spawning a rotten apple
-    public GameObject goldenApple_pf; // Prefab for spawning a golden apple
-    public GameObject bomb_pf; // Prefab for spawning a bomb
+    public AudioClip refAudioClip; // Reference to the audio clip
+    public SpriteRenderer faderRenderer; // Reference to the sprite renderer for fading out effect
+    public GameObject applePF; // Prefab for spawning an apple
+    public GameObject bananaPF; // Prefab for spawning a banana
+    public GameObject rottenApplePF; // Prefab for spawning a rotten apple
+    public GameObject goldenApplePF; // Prefab for spawning a golden apple
+    public GameObject bombPF; // Prefab for spawning a bomb
     public GameMaster gameMaster; // Reference to the GameMaster script
 
     protected float spawnTime = 3f; // Time between object spawns
-    protected AudioSource ref_audioSource; // Reference to the AudioSource component
-    protected float current_alpha = 1; // Current alpha value for fading out effect
+    protected AudioSource refAudioSource; // Reference to the AudioSource component
+    protected float currentAlpha = 1; // Current alpha value for fading out effect
 
     private Vector2 screenBounds;
 
@@ -28,10 +28,10 @@ public class SpawnerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ref_audioSource = gameObject.AddComponent<AudioSource>(); // Add an AudioSource component
-        ref_audioSource.loop = true; // Set audio clip to loop
-        ref_audioSource.volume = 0.5f; // Set audio volume
-        ref_audioSource.clip = ref_audioClip; // Set the audio clip
+        refAudioSource = gameObject.AddComponent<AudioSource>(); // Add an AudioSource component
+        refAudioSource.loop = true; // Set audio clip to loop
+        refAudioSource.volume = 0.5f; // Set audio volume
+        refAudioSource.clip = refAudioClip; // Set the audio clip
 
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
 
@@ -52,34 +52,34 @@ public class SpawnerScript : MonoBehaviour
 
             // Randomly choose which object is going to be spawned
             float randomObject = Random.Range(0f, 1f);
-            if (randomObject - apple_pf.GetComponent<ObjectFalling>().spawnProba < 0)
+            if (randomObject - applePF.GetComponent<ObjectFalling>().spawnProba < 0)
             {
                 // Spawn an apple
-                GameObject newApple = Instantiate(apple_pf);
+                GameObject newApple = Instantiate(applePF);
                 newApple.transform.position = new Vector3(randomX, 6.0f, 0);
             }
-            else if (randomObject - apple_pf.GetComponent<ObjectFalling>().spawnProba - rottenApple_pf.GetComponent<ObjectFalling>().spawnProba < 0)
+            else if (randomObject - applePF.GetComponent<ObjectFalling>().spawnProba - rottenApplePF.GetComponent<ObjectFalling>().spawnProba < 0)
             {
                 // Spawn a rotten apple
-                GameObject newRottenApple = Instantiate(rottenApple_pf);
+                GameObject newRottenApple = Instantiate(rottenApplePF);
                 newRottenApple.transform.position = new Vector3(randomX, 6.0f, 0);
             }
-            else if (randomObject - apple_pf.GetComponent<ObjectFalling>().spawnProba - rottenApple_pf.GetComponent<ObjectFalling>().spawnProba - banana_pf.GetComponent<ObjectFalling>().spawnProba < 0)
+            else if (randomObject - applePF.GetComponent<ObjectFalling>().spawnProba - rottenApplePF.GetComponent<ObjectFalling>().spawnProba - bananaPF.GetComponent<ObjectFalling>().spawnProba < 0)
             {
                 // Spawn a banana
-                GameObject newBanana = Instantiate(banana_pf);
+                GameObject newBanana = Instantiate(bananaPF);
                 newBanana.transform.position = new Vector3(randomX, 6.0f, 0);
             }
-            else if (randomObject - apple_pf.GetComponent<ObjectFalling>().spawnProba - rottenApple_pf.GetComponent<ObjectFalling>().spawnProba - banana_pf.GetComponent<ObjectFalling>().spawnProba - bomb_pf.GetComponent<ObjectFalling>().spawnProba < 0)
+            else if (randomObject - applePF.GetComponent<ObjectFalling>().spawnProba - rottenApplePF.GetComponent<ObjectFalling>().spawnProba - bananaPF.GetComponent<ObjectFalling>().spawnProba - bombPF.GetComponent<ObjectFalling>().spawnProba < 0)
             {
                 // Spawn a bomb
-                GameObject newBomb = Instantiate(bomb_pf);
-                bomb_pf.transform.position = new Vector3(randomX, 6.0f, 0);
+                GameObject newBomb = Instantiate(bombPF);
+                bombPF.transform.position = new Vector3(randomX, 6.0f, 0);
             }
             else
             {
                 // Spawn a golden apple
-                GameObject newGoldenApple = Instantiate(goldenApple_pf);
+                GameObject newGoldenApple = Instantiate(goldenApplePF);
                 newGoldenApple.transform.position = new Vector3(randomX, 6.0f, 0);
             }
 
@@ -93,16 +93,16 @@ public class SpawnerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f); // Wait for 0.5 seconds
 
-        ref_audioSource.Play(); // Play the audio clip
+        refAudioSource.Play(); // Play the audio clip
 
-        while (current_alpha > 0)
+        while (currentAlpha > 0)
         {
-            current_alpha -= Time.deltaTime / 2; // Decrease the alpha value over time
-            fader_renderer.color = new Color(1, 1, 1, current_alpha); // Set the color with updated alpha value
+            currentAlpha -= Time.deltaTime / 2; // Decrease the alpha value over time
+            faderRenderer.color = new Color(1, 1, 1, currentAlpha); // Set the color with updated alpha value
             yield return null;
         }
 
-        Destroy(fader_renderer.gameObject); // Destroy the fader object
+        Destroy(faderRenderer.gameObject); // Destroy the fader object
 
     }
 }

@@ -26,7 +26,6 @@ public class GameLoad : MonoBehaviour
         {
             bird.GetComponent<Bird>().enabled = true;
             bird.GetComponent<Rigidbody2D>().gravityScale = 1;
-            //bird.GetComponent<Animator>().enabled = true;
             bird.GetComponent<AudioSource>().enabled = true;
             StartCoroutine(loadGame());
         }

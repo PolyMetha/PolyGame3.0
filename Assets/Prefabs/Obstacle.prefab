@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptSpawner: {fileID: 0}
-  sC: {fileID: 876742333481696119}
+  scoreCount: {fileID: 876742333481696119}
 --- !u!1 &4599171977397422651
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oS: {fileID: 0}
+  bird: {fileID: 0}
 --- !u!82 &6305046380775052572
 AudioSource:
   m_ObjectHideFlags: 0

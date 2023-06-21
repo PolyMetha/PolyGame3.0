@@ -7,10 +7,10 @@ public class Title_Script : MonoBehaviour
     //---------------------------------------------------------------------------------
     // ATTRIBUTES
     //---------------------------------------------------------------------------------
-    public SpriteRenderer fader_renderer; // Reference to the sprite renderer for fading effect
+    public SpriteRenderer faderRenderer; // Reference to the sprite renderer for fading effect
     public AudioClip leaveSound; // Sound clip played when leaving the title screen
 
-    protected AudioSource r_audioSource; // Reference to the AudioSource component
+    protected AudioSource refAudioSource; // Reference to the AudioSource component
     protected bool hasLeft = false; // Flag indicating if the player has left the title screen
     protected float current_alpha = 0; // Current alpha value for fading effect
 
@@ -20,7 +20,7 @@ public class Title_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        r_audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
+        refAudioSource = GetComponent<AudioSource>(); // Get the AudioSource component
     }
 
     // Update is called once per frame
@@ -40,10 +40,10 @@ public class Title_Script : MonoBehaviour
     IEnumerator LoadScene_Game()
     {
         // Stop the music and play the exit sound
-        r_audioSource.Stop();
-        r_audioSource.clip = leaveSound;
-        r_audioSource.loop = false;
-        r_audioSource.Play();
+        refAudioSource.Stop();
+        refAudioSource.clip = leaveSound;
+        refAudioSource.loop = false;
+        refAudioSource.Play();
 
         // Wait for the sound to end with a margin
         yield return new WaitForSeconds(0.8f);
@@ -52,7 +52,7 @@ public class Title_Script : MonoBehaviour
         while (current_alpha < 1)
         {
             current_alpha += Time.deltaTime / 2; // Increase the alpha value over time
-            fader_renderer.color = new Color(1, 1, 1, current_alpha); // Set the color with updated alpha value
+            faderRenderer.color = new Color(1, 1, 1, current_alpha); // Set the color with updated alpha value
             yield return null;
         }
 

@@ -14,12 +14,12 @@ public class SpawnerBrickBreaker : MonoBehaviour
     public Ball ball;
     public int lineNumber = 1;
 
-    private float brick_width = 1.76f;
-    private float brick_height = 0.92f;
-    private float largeur = 11f;
-    private int colonne = 7;
+    private float brickWidth = 1.76f;
+    private float brickHeight = 0.92f;
+    private float playableWidth = 11f;
+    private int playableColumns = 7;
     public int createdBricks = 0;
-    private float proba_bricks = 0.6f;
+    private float probaBricks = 0.6f;
     private float timeRemaining = 20;
     private bool isDestroyed = false;
 
@@ -73,17 +73,17 @@ public class SpawnerBrickBreaker : MonoBehaviour
     {
         Debug.Log("grid");
         // Calculate the scale and position for grid spawning
-        float L_B = largeur / (colonne * 2);
+        float L_B = playableWidth / (playableColumns * 2);
         float R = 1.8f;
         float scale = L_B / R;
         float y = 3.33f - scale / 2;
 
         for (int j = 0; j <= lineNumber; j++)
         {
-            for (int i = 0; i < colonne; i++)
+            for (int i = 0; i < playableColumns; i++)
             {
                 // Randomly determine if a brick should be spawned based on probability
-                if (Random.value <= proba_bricks)
+                if (Random.value <= probaBricks)
                 {
                     GameObject brick1;
                     GameObject brick2;
@@ -106,8 +106,8 @@ public class SpawnerBrickBreaker : MonoBehaviour
                     brick1.transform.parent = gameObject.transform;
                     brick2.transform.parent = gameObject.transform;
 
-                    float x1 = -(brick_width * scale) / 2 - i * scale * brick_width;
-                    float y1 = y - j * scale * brick_height;
+                    float x1 = -(brickWidth * scale) / 2 - i * scale * brickWidth;
+                    float y1 = y - j * scale * brickHeight;
 
                     brick1.transform.position = new Vector3(x1, y1);
                     brick1.transform.localScale = new Vector3(scale, scale, -3);

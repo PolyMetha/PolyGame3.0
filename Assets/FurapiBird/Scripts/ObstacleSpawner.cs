@@ -8,25 +8,28 @@ public class ObstacleSpawner : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] GameObject pipe;
+
     private float timerObstacles = 1f;
     private float timerDeathSound =3f;
     private float timerSpeed = 30f;
     public float pipeSpeed = 4f;
-    public TextMeshProUGUI scoreText;
-    public GameObject commandsText;
-    [SerializeField] Bird b;
+
     public int score = 0;
     public bool isDead = false;
     public bool deadCoroutineStarted = false;
-    AudioSource music;
+
+    AudioSource music;    
+    public TextMeshProUGUI scoreText;
+    public GameObject commandsText;    
+    [SerializeField] GameObject pipe;
+    [SerializeField] Bird bird;
 
     void Start()
     {
         commandsText.SetActive(false);
         music = GetComponent<AudioSource>();
-        b = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
-        b.oS = this;
+        bird = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
+        bird.oS = this;
     }
 
     // Update is called once per frame
@@ -43,7 +46,7 @@ public class ObstacleSpawner : MonoBehaviour
             
             newPipe.GetComponent<PipeObstacle_Script>().scriptSpawner = this;
             newPipe.transform.position = new Vector3(10f, ypos, 0f);
-            newPipe.GetComponent<PipeObstacle_Script>().sC.oS = this;
+            newPipe.GetComponent<PipeObstacle_Script>().scoreCount.oS = this;
             timerObstacles = (Random.value + 1.5f) * 1.1f * 4f/pipeSpeed;
         }
 
@@ -55,7 +58,7 @@ public class ObstacleSpawner : MonoBehaviour
 
         scoreText.SetText("Score : " + score);
 
-        if (!b.isAlive)
+        if (!bird.isAlive)
         {
             timerDeathSound -= Time.deltaTime;                
             music.Stop();
@@ -80,7 +83,7 @@ public class ObstacleSpawner : MonoBehaviour
             yield return null;
         }
 
-        Destroy(b.gameObject);
+        Destroy(bird.gameObject);
 
         if (Input.GetKeyDown(KeyCode.M))
         {

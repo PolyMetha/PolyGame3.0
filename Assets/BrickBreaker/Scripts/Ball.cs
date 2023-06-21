@@ -12,12 +12,14 @@ public class Ball : MonoBehaviour
     public TextMeshProUGUI textTopScore;
     public SpawnerBrickBreaker spawn;
     public GameObject ballPF;
-    public GameObject[] listLife;
+    public GameObject[] listLife;    
+    public GameObject coinPrefab;
     public int coinHit = 0;
 
-    [SerializeField] public TextMeshPro textScore;
+
+    public TextMeshPro textScore;
     [SerializeField] Canvas gameOverCanvas;
-    [SerializeField] public GameObject coinPrefab;
+
 
     AudioSource audioSourceWall;
     [SerializeField] AudioClip soundOnWall;
@@ -31,9 +33,9 @@ public class Ball : MonoBehaviour
     [SerializeField] AudioClip soundOnEnd;
 
     private int life = 3;
+    private int topScore;    
     private float timer = 2f;
-    private int topScore;
-    private float velocityCST;
+    private float ballVelocity;
     private string path;
     private bool gameOverSound = false;
     private Vector2 initPos;
@@ -122,9 +124,9 @@ public class Ball : MonoBehaviour
                     rb.velocity.y * 5, 0f);
             }
 
-            if (rb.velocity.magnitude != velocityCST)
+            if (rb.velocity.magnitude != ballVelocity)
             {
-                rb.velocity = rb.velocity.normalized * velocityCST;
+                rb.velocity = rb.velocity.normalized * ballVelocity;
             }
         }
 
@@ -166,7 +168,7 @@ public class Ball : MonoBehaviour
 
             // Set the velocity of the ball after respawning
             rb.velocity = new Vector3(0f, -8f - spawn.lineNumber, 0f);
-            velocityCST = rb.velocity.magnitude;
+            ballVelocity = rb.velocity.magnitude;
 
         }
     }
