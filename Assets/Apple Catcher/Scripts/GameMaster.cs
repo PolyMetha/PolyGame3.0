@@ -6,10 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
-    //---------------------------------------------------------------------------------
-    // ATTRIBUTES
-    //---------------------------------------------------------------------------------
     public bool timerIsRunning = false; // Flag indicating whether the timer is running
+
     public GameObject noMoreTimeUI; // Reference to the UI element displayed when time runs out
     public Player_Script player; // Reference to the player script
 
@@ -21,10 +19,6 @@ public class GameMaster : MonoBehaviour
     private float seconds = 0; // Stores the calculated seconds from timeRemaining
     private bool isDestroyed = false;
 
-    //---------------------------------------------------------------------------------
-    // METHODS
-    //---------------------------------------------------------------------------------
-    // Start is called before the first frame update
     void Start()
     {
         timerIsRunning = true; // Start the timer
@@ -40,10 +34,12 @@ public class GameMaster : MonoBehaviour
                 timeRemaining -= Time.deltaTime; // Decrease the time remaining by the time passed since the last frame
                 minutes = Mathf.FloorToInt(timeRemaining / 60); // Calculate the minutes from the remaining time
                 seconds = Mathf.FloorToInt(timeRemaining % 60); // Calculate the seconds from the remaining time
+
                 if (seconds < 10 && minutes < 1)
                 {
                     textTimeLeft.color = Color.red;
                 }
+
                 textTimeLeft.SetText(string.Format("{0:00}:{1:00}", minutes, seconds) + " Left"); // Update the TextMeshPro component to display the time left
             }
             else
@@ -63,16 +59,17 @@ public class GameMaster : MonoBehaviour
         }
         else
         {
-                string path = Application.dataPath + "/StreamingAssets/TopScoreApple.txt";
-                string fileContent = File.ReadAllText(path);
-                int topScore = int.Parse(fileContent);
+            string path = Application.dataPath + "/StreamingAssets/TopScoreApple.txt"; // Charging the top score
+            string fileContent = File.ReadAllText(path);
+            int topScore = int.Parse(fileContent);
 
-                if(player.score > int.Parse(fileContent))
-                {
-                    File.WriteAllText(path, player.score.ToString());
-                }
+            if (player.score > int.Parse(fileContent))
+            {
+                File.WriteAllText(path, player.score.ToString());
+            }
         }
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -89,4 +86,4 @@ public class GameMaster : MonoBehaviour
             yield return null;
         }
     }
-} 
+}

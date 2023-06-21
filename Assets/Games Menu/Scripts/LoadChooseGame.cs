@@ -11,10 +11,10 @@ public class LoadChooseGame : MonoBehaviour
 
     public IEnumerator LoadChooseCoroutine()
     {
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
-        while (!asyncload.isDone)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu"); // Load the "MainMenu" scene asynchronously
+        while (!asyncLoad.isDone)
         {
-            yield return null;
+            yield return null; // Wait until the scene is fully loaded
         }
     }
 }

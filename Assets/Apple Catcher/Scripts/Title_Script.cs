@@ -4,19 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class Title_Script : MonoBehaviour
 {
-    //---------------------------------------------------------------------------------
-    // ATTRIBUTES
-    //---------------------------------------------------------------------------------
     public SpriteRenderer faderRenderer; // Reference to the sprite renderer for fading effect
+
     public AudioClip leaveSound; // Sound clip played when leaving the title screen
 
     protected AudioSource refAudioSource; // Reference to the AudioSource component
+
     protected bool hasLeft = false; // Flag indicating if the player has left the title screen
+
     protected float current_alpha = 0; // Current alpha value for fading effect
 
-    //---------------------------------------------------------------------------------
-    // METHODS
-    //---------------------------------------------------------------------------------
     // Start is called before the first frame update
     void Start()
     {

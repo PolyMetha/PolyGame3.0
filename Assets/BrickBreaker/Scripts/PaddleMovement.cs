@@ -3,25 +3,21 @@ using UnityEngine.UIElements;
 
 public class PaddleMovement : MonoBehaviour
 {
-    //---------------------------------------------------------------------------------
-    // ATTRIBUTES
-    //---------------------------------------------------------------------------------
-    private Camera cam;
-    private float SPEED = 8f;
-    private float angleValue = 5f;
-    private Vector2 lastPoint;
+    private float SPEED = 8f; // Speed of paddle movement
+    private float angleValue = 5f; // Value to adjust ball's velocity on paddle collision
 
-    protected AudioSource audioSourceCoin;
-    [SerializeField] AudioClip soundOnCoin;
+    private Camera cam; // Reference to the main camera
 
-    [SerializeField] Ball ball;
+    private Vector2 lastPoint; // Last recorded mouse position
 
-    public MouseMoveEvent MoveEvent;
+    protected AudioSource audioSourceCoin; // AudioSource component for playing coin sound
 
-    //---------------------------------------------------------------------------------
-    // METHODS
-    //---------------------------------------------------------------------------------
-    // Start is called before the first frame update
+    [SerializeField] AudioClip soundOnCoin; // Sound clip for coin collision
+
+    [SerializeField] Ball ball; // Reference to the Ball script
+
+    public MouseMoveEvent MoveEvent; // Mouse move event
+
     void Start()
     {
         audioSourceCoin = gameObject.AddComponent<AudioSource>();
@@ -57,11 +53,11 @@ public class PaddleMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ball"))
+        if (collision.gameObject.CompareTag("Ball")) // Check if paddle collides with the ball
         {
             // Adjust ball's velocity based on the collision point with the paddle
             float diff = ball.transform.position.x - transform.position.x;
-            if (ball.transform.position.x - transform.position.x < 0)
+            if (diff < 0)
             {
                 ball.GetComponent<Rigidbody2D>().velocity += new Vector2(diff * angleValue, 0);
             }
@@ -70,13 +66,13 @@ public class PaddleMovement : MonoBehaviour
                 ball.GetComponent<Rigidbody2D>().velocity += new Vector2(diff * angleValue, 0);
             }
         }
-        else if (collision.gameObject.CompareTag("Coin"))
+        else if (collision.gameObject.CompareTag("Coin")) // Check if paddle collides with a coin
         {
-            audioSourceCoin.Play();
-            Destroy(collision.gameObject);
-            ball.coinHit += 1;
-            ball.score += 100;
-            ball.textScore.SetText("SCORE: " + ball.score);
+            audioSourceCoin.Play(); // Play coin collision sound
+            Destroy(collision.gameObject); // Destroy the coin game object
+            ball.coinHit += 1; // Increment the coin hit count in the Ball script
+            ball.score += 200; // Increase the score in the Ball script
+            ball.textScore.SetText("SCORE: " + ball.score); // Update the score display in the Ball script
         }
     }
 }

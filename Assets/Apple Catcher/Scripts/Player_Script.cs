@@ -3,9 +3,6 @@ using TMPro;
 
 public class Player_Script : MonoBehaviour
 {
-    //---------------------------------------------------------------------------------
-    // ATTRIBUTES
-    //---------------------------------------------------------------------------------
     public TextMeshProUGUI displayedText; // Reference to the TextMeshPro component for displaying the score
     public GameMaster gameMaster; // Reference to the GameMaster script
     public GameObject gameOverUI; // Reference to the game over UI element
@@ -21,9 +18,6 @@ public class Player_Script : MonoBehaviour
 
     private bool paused;
 
-    //---------------------------------------------------------------------------------
-    // METHODS
-    //---------------------------------------------------------------------------------
     void Start()
     {
         refAudioSource = GetComponent<AudioSource>(); // Get the AudioSource component

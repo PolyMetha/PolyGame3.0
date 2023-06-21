@@ -527,8 +527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   oS: {fileID: 0}
-  topScore: 0
-  soundOnMouvment: {fileID: 8300000, guid: bf7d144234794bd46b5592540f66ca31, type: 3}
+  soundOnMovement: {fileID: 8300000, guid: bf7d144234794bd46b5592540f66ca31, type: 3}
   soundOnImpact: {fileID: 8300000, guid: fd1cb69a7eab4b44486df0dc1926cbc0, type: 3}
   soundOnDeath: {fileID: 8300000, guid: 60bfaf946f75ffe4e8512d42fcaf71fd, type: 3}
 --- !u!60 &707159491

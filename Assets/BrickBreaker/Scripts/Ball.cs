@@ -4,46 +4,44 @@ using TMPro;
 
 public class Ball : MonoBehaviour
 {
-    //---------------------------------------------------------------------------------
-    // ATTRIBUTES
-    //---------------------------------------------------------------------------------
-    public bool isSpawning = true;
-    public int score;
-    public TextMeshProUGUI textTopScore;
-    public SpawnerBrickBreaker spawn;
-    public GameObject ballPF;
-    public GameObject[] listLife;    
-    public GameObject coinPrefab;
-    public int coinHit = 0;
+    public bool isSpawning = true; // Flag indicating if the ball is spawning
+    public int score; // Current score
+    public int coinHit = 0; // Counter for coins hit
 
+    public TextMeshProUGUI textTopScore; // Reference to the TextMeshProUGUI component for top score display
+    public SpawnerBrickBreaker spawn; // Reference to the SpawnerBrickBreaker component for spawning bricks
+    public GameObject ballPF; // Prefab of the ball game object
+    public GameObject[] listLife; // Array of game objects representing player lives
+    public GameObject coinPrefab; // Prefab of the coin game object
 
-    public TextMeshPro textScore;
-    [SerializeField] Canvas gameOverCanvas;
+    public TextMeshPro textScore; // Reference to the TextMeshPro component for score display
+    [SerializeField] Canvas gameOverCanvas; // Reference to the Canvas component for game over display
 
+    AudioSource audioSourceWall; // AudioSource for wall collision sound
+    [SerializeField] AudioClip soundOnWall; // Sound clip for wall collision
+    AudioSource audioSourcePaddle; // AudioSource for paddle collision sound
+    [SerializeField] AudioClip soundOnPaddle; // Sound clip for paddle collision
+    AudioSource audioSourceRestart; // AudioSource for ball respawn sound
+    [SerializeField] AudioClip soundOnRestart; // Sound clip for ball respawn
+    AudioSource audioSourceFall; // AudioSource for ball falling sound
+    [SerializeField] AudioClip soundOnFall; // Sound clip for ball falling
+    public AudioSource audioSourceEnd; // AudioSource for game over sound
+    [SerializeField] AudioClip soundOnEnd; // Sound clip for game over sound
 
-    AudioSource audioSourceWall;
-    [SerializeField] AudioClip soundOnWall;
-    AudioSource audioSourcePaddle;
-    [SerializeField] AudioClip soundOnPaddle;
-    AudioSource audioSourceRestart;
-    [SerializeField] AudioClip soundOnRestart;
-    AudioSource audioSourceFall;
-    [SerializeField] AudioClip soundOnFall;
-    public AudioSource audioSourceEnd;
-    [SerializeField] AudioClip soundOnEnd;
+    private int life = 3; // Current number of lives
+    private int topScore; // Top score
 
-    private int life = 3;
-    private int topScore;    
-    private float timer = 2f;
-    private float ballVelocity;
-    private string path;
-    private bool gameOverSound = false;
-    private Vector2 initPos;
-    private Rigidbody2D rb;
+    private float timer = 2f; // Timer for ball respawn
+    private float ballVelocity; // Velocity of the ball
 
-    //---------------------------------------------------------------------------------
-    // METHODS
-    //---------------------------------------------------------------------------------
+    private string path; // File path for storing top score
+
+    private bool gameOverSound = false; // Flag indicating if game over sound has played
+
+    private Vector2 initPos; // Initial position of the ball
+
+    private Rigidbody2D rb; // Rigidbody2D component of the ball
+
     void Start()
     {
         audioSourceWall = gameObject.AddComponent<AudioSource>();
@@ -68,14 +66,14 @@ public class Ball : MonoBehaviour
 
         audioSourceRestart.Play();
 
-        listLife = new GameObject[5];
+        listLife = new GameObject[5]; // Initialize the list of life game objects
 
-        //topscore
+        // Read the top score from the file
         path = Application.dataPath + "/StreamingAssets/TopScoreBrick.txt";
         string f = File.ReadAllText(path);
         topScore = int.Parse(f);
 
-        initPos = new Vector2(4.82f, 4.43f);
+        initPos = new Vector2(4.82f, 4.43f); // Set the initial position of the ball
 
         for (int i = 0; i < life; i++)
         {
@@ -120,8 +118,7 @@ public class Ball : MonoBehaviour
         {
             if (rb.velocity.y <= 2 && rb.velocity.y >= -2)
             {
-                rb.velocity = new Vector3(rb.velocity.x,
-                    rb.velocity.y * 5, 0f);
+                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 5, 0f);
             }
 
             if (rb.velocity.magnitude != ballVelocity)
@@ -138,23 +135,23 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Brick"))
+        if (collision.gameObject.CompareTag("Brick")) // Check if ball collides with a brick
         {
             if (Random.value <= 0.1f)
             {
-                Instantiate(coinPrefab, transform.position, Quaternion.identity);
+                Instantiate(coinPrefab, transform.position, Quaternion.identity); // Instantiate a coin game object
             }
-            score += 50;
-            textScore.SetText("SCORE: " + score);
-            audioSourcePaddle.Play();
+            score += 50; // Increase the score
+            textScore.SetText("SCORE: " + score); // Update the score display
+            audioSourcePaddle.Play(); // Play paddle collision sound
         }
-        else if (collision.gameObject.CompareTag("Wall"))
+        else if (collision.gameObject.CompareTag("Wall")) // Check if ball collides with a wall
         {
-            audioSourceWall.Play();
+            audioSourceWall.Play(); // Play wall collision sound
         }
-        else if (collision.gameObject.CompareTag("Paddle"))
+        else if (collision.gameObject.CompareTag("Paddle")) // Check if ball collides with the paddle
         {
-            audioSourcePaddle.Play();
+            audioSourcePaddle.Play(); // Play paddle collision sound
         }
     }
 
@@ -169,7 +166,6 @@ public class Ball : MonoBehaviour
             // Set the velocity of the ball after respawning
             rb.velocity = new Vector3(0f, -8f - spawn.lineNumber, 0f);
             ballVelocity = rb.velocity.magnitude;
-
         }
     }
 
@@ -186,23 +182,21 @@ public class Ball : MonoBehaviour
 
     public void RemoveLife()
     {
-
         if (life > 0)
         {
-            Destroy(listLife[life-1]); // Destroy the game object representing a life
-            listLife[life-1] = null;
-        }        
+            Destroy(listLife[life - 1]); // Destroy the game object representing a life
+            listLife[life - 1] = null;
+        }
         life--;
     }
 
     public void AddLife()
     {
         if (life < 5)
-        { 
+        {
+            GameObject newBall = Instantiate(ballPF);
 
-            GameObject newBall = Instantiate(ballPF);            
-
-            newBall.transform.position = listLife[life-1].transform.position+new Vector3(-0.7f,0,0);
+            newBall.transform.position = listLife[life - 1].transform.position + new Vector3(-0.7f, 0, 0);
             listLife[life] = newBall;
             life++;
         }
@@ -210,7 +204,7 @@ public class Ball : MonoBehaviour
 
     public void TopScore()
     {
-        if (!gameOverSound) //On vérifie que le Son n'a pas déjà été joué.
+        if (!gameOverSound)
         {
             audioSourceEnd.Play();
             gameOverSound = true;
@@ -225,6 +219,5 @@ public class Ball : MonoBehaviour
             File.WriteAllText(path, f); // Write the updated top score to the file
         }
         textTopScore.SetText("TopScore : " + topScore);
-        
     }
 }

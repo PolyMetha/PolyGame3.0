@@ -12,6 +12,7 @@ public class ScenesLoader : MonoBehaviour
 
     void Start()
     {
+        // Initialize audio sources and clips
         audioSourceSelectedGame = gameObject.AddComponent<AudioSource>();
         audioSourceSelectedGame.clip = soundOnSelectedGame;
         audioSourceSelectedGame.playOnAwake = false;
@@ -27,7 +28,7 @@ public class ScenesLoader : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit(); // Quit the application when the escape key is pressed
+            AppQuit(); // Quit the application when the escape key is pressed
         }
     }
 
@@ -36,16 +37,16 @@ public class ScenesLoader : MonoBehaviour
         audioSourceBackground.Stop();
         audioSourceSelectedGame.Play();
         yield return new WaitForSeconds(1.5f);
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("FurapiBirdLoad");
-        while (!asyncload.isDone)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("FurapiBirdLoad"); // Load "FurapiBirdLoad" scene asynchronously
+        while (!asyncLoad.isDone)
         {
-            yield return null;
+            yield return null; // Wait until the scene is fully loaded
         }
     }
 
     public void LoadBird()
     {
-        StartCoroutine(LoadBirdCoroutine());    
+        StartCoroutine(LoadBirdCoroutine());
     }
 
     public IEnumerator LoadAppleCoroutine()
@@ -53,10 +54,10 @@ public class ScenesLoader : MonoBehaviour
         audioSourceBackground.Stop();
         audioSourceSelectedGame.Play();
         yield return new WaitForSeconds(1.5f);
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("AppleCatcherLoad");
-        while (!asyncload.isDone)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("AppleCatcherLoad"); // Load "AppleCatcherLoad" scene asynchronously
+        while (!asyncLoad.isDone)
         {
-            yield return null;
+            yield return null; // Wait until the scene is fully loaded
         }
     }
 
@@ -70,10 +71,10 @@ public class ScenesLoader : MonoBehaviour
         audioSourceBackground.Stop();
         audioSourceSelectedGame.Play();
         yield return new WaitForSeconds(1.5f);
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("BrickBreakerLoad");
-        while (!asyncload.isDone)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("BrickBreakerLoad"); // Load "BrickBreakerLoad" scene asynchronously
+        while (!asyncLoad.isDone)
         {
-            yield return null;
+            yield return null; // Wait until the scene is fully loaded
         }
     }
 
@@ -89,19 +90,19 @@ public class ScenesLoader : MonoBehaviour
 
     public IEnumerator LoadMenuCoroutine()
     {
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
-        while (!asyncload.isDone)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu"); // Load "MainMenu" scene asynchronously
+        while (!asyncLoad.isDone)
         {
-            yield return null;
+            yield return null; // Wait until the scene is fully loaded
         }
     }
 
     public void AppQuit()
     {
-        #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-        #else
-                Application.Quit();
-        #endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // Quit the application in the Unity Editor
+#else
+                Application.Quit(); // Quit the application in a built executable
+#endif
     }
 }

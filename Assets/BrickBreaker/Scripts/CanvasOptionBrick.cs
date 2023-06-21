@@ -5,9 +5,7 @@ using UnityEngine.SceneManagement;
 public class CanvasOptionBrick : MonoBehaviour
 {
     public Ball ball;
-    //---------------------------------------------------------------------------------
-    // METHODS
-    //---------------------------------------------------------------------------------
+
     public void RestartGame()
     {
         StartCoroutine(Restart());

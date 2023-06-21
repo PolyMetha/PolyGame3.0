@@ -1,77 +1,76 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private float timerObstacles = 1f; // Timer for spawning obstacles
+    private float timerDeathSound = 3f; // Timer for playing death sound
+    private float timerSpeed = 30f; // Timer for increasing pipe speed
 
+    public float pipeSpeed = 4f; // Initial speed of the pipes
 
-    private float timerObstacles = 1f;
-    private float timerDeathSound =3f;
-    private float timerSpeed = 30f;
-    public float pipeSpeed = 4f;
+    public int score = 0; // Current score
 
-    public int score = 0;
-    public bool isDead = false;
-    public bool deadCoroutineStarted = false;
+    public bool isDead = false; // Flag to indicate if the bird is dead
+    public bool deadCoroutineStarted = false; // Flag to check if the dead coroutine has started
 
-    AudioSource music;    
-    public TextMeshProUGUI scoreText;
-    public GameObject commandsText;    
-    [SerializeField] GameObject pipe;
-    [SerializeField] Bird bird;
+    public TextMeshProUGUI scoreText; // Text component for displaying the score
+
+    public GameObject commandsText; // UI text for displaying commands
+
+    AudioSource music; // Reference to the audio source
+
+    [SerializeField] GameObject pipe; // Prefab for the obstacle pipes
+    [SerializeField] Bird bird; // Reference to the Bird script
 
     void Start()
     {
-        commandsText.SetActive(false);
-        music = GetComponent<AudioSource>();
-        bird = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>();
-        bird.oS = this;
+        commandsText.SetActive(false); // Disable the commands text at the start
+        music = GetComponent<AudioSource>(); // Get the AudioSource component
+        bird = GameObject.FindGameObjectWithTag("Player").GetComponent<Bird>(); // Find the Bird object and get the Bird script component
+        bird.oS = this; // Assign the ObstacleSpawner reference to the Bird script
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        timerObstacles -= Time.deltaTime;
-        timerSpeed -= Time.deltaTime;   
+        timerObstacles -= Time.deltaTime; // Decrement the obstacles spawn timer
+        timerSpeed -= Time.deltaTime; // Decrement the pipe speed timer
 
-        float ypos = Random.Range(-3, 3) + 0.5f;
+        float ypos = Random.Range(-3, 3) + 0.5f; // Generate a random y-position for the pipe
 
-        if(timerObstacles <= 0f)
+        if (timerObstacles <= 0f)
         {
-            GameObject newPipe = Instantiate(pipe);
-            
-            newPipe.GetComponent<PipeObstacle_Script>().scriptSpawner = this;
-            newPipe.transform.position = new Vector3(10f, ypos, 0f);
-            newPipe.GetComponent<PipeObstacle_Script>().scoreCount.oS = this;
-            timerObstacles = (Random.value + 1.5f) * 1.1f * 4f/pipeSpeed;
+            GameObject newPipe = Instantiate(pipe); // Spawn a new pipe
+
+            newPipe.GetComponent<PipeObstacle_Script>().scriptSpawner = this; // Assign the ObstacleSpawner reference to the PipeObstacle_Script
+            newPipe.transform.position = new Vector3(10f, ypos, 0f); // Set the position of the new pipe
+            newPipe.GetComponent<PipeObstacle_Script>().scoreCount.oS = this; // Assign the ObstacleSpawner reference to the ScoreCounter script
+            timerObstacles = (Random.value + 1.5f) * 1.1f * 4f / pipeSpeed; // Reset the obstacles spawn timer
         }
 
-        if(timerSpeed < 0f)
+        if (timerSpeed < 0f)
         {
-            pipeSpeed *= 1.1f;
-            timerSpeed = 30f;
+            pipeSpeed *= 1.1f; // Increase the pipe speed
+            timerSpeed = 30f; // Reset the pipe speed timer
         }
 
-        scoreText.SetText("Score : " + score);
+        scoreText.SetText("Score : " + score); // Update the score text
 
         if (!bird.isAlive)
         {
-            timerDeathSound -= Time.deltaTime;                
-            music.Stop();
+            timerDeathSound -= Time.deltaTime; // Decrement the death sound timer
+            music.Stop(); // Stop the music
             if (timerDeathSound < 0)
             {
-                commandsText.SetActive(true);
-
+                commandsText.SetActive(true); // Enable the commands text
             }
         }
 
         if (isDead && deadCoroutineStarted == false)
         {
-            StartCoroutine("WhenDead");
+            StartCoroutine("WhenDead"); // Start the dead coroutine
             deadCoroutineStarted = true;
         }
     }
@@ -83,37 +82,35 @@ public class ObstacleSpawner : MonoBehaviour
             yield return null;
         }
 
-        Destroy(bird.gameObject);
+        Destroy(bird.gameObject); // Destroy the bird game object
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            StartCoroutine(loadMenu());
+            StartCoroutine(loadMenu()); // Load the menu scene
             Debug.Log("Menu");
-
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            StartCoroutine(loadGame());
+            StartCoroutine(loadGame()); // Restart the game
             Debug.Log("Restart");
-
         }
     }
 
     IEnumerator loadGame()
     {
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("FurapiBirdLoad");
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("FurapiBirdLoad"); // Load the game scene asynchronously
         while (!asyncload.isDone)
         {
-            yield return null;
+            yield return null; // Wait until the game scene is fully loaded
         }
     }
 
     IEnumerator loadMenu()
     {
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu"); // Load the menu scene asynchronously
         while (!asyncload.isDone)
         {
-            yield return null;
+            yield return null; // Wait until the menu scene is fully loaded
         }
     }
 }

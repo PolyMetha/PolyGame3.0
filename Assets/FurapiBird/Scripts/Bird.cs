@@ -1,33 +1,30 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
-using TMPro;
 
 public class Bird : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public bool isAlive = true; // Flag to track if the bird is alive or dead
 
-    public bool isAlive = true;
-    private Animator animator;
-    public ObstacleSpawner oS;
-    public int topScore;
+    public ObstacleSpawner oS; // Reference to the ObstacleSpawner script
 
-    AudioSource audioSourceMouvment;
-    [SerializeField] AudioClip soundOnMouvment;
-    AudioSource audioSourceImpact;
-    [SerializeField] AudioClip soundOnImpact;
-    AudioSource audioSourceDeath;
-    [SerializeField] AudioClip soundOnDeath;
+    private Animator animator; // Animator component for bird animation
+
+    private AudioSource audioSourceMovement; // AudioSource component for bird movement sound
+    [SerializeField] AudioClip soundOnMovement; // Sound clip for bird movement
+    private AudioSource audioSourceImpact; // AudioSource component for impact sound
+    [SerializeField] AudioClip soundOnImpact; // Sound clip for impact
+    private AudioSource audioSourceDeath; // AudioSource component for death sound
+    [SerializeField] AudioClip soundOnDeath; // Sound clip for death
 
     void Start()
     {
-        animator = this.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
-        audioSourceMouvment = gameObject.AddComponent<AudioSource>();
-        audioSourceMouvment.clip = soundOnMouvment;
-        audioSourceMouvment.playOnAwake = false;
+        audioSourceMovement = gameObject.AddComponent<AudioSource>();
+        audioSourceMovement.clip = soundOnMovement;
+        audioSourceMovement.playOnAwake = false;
 
         audioSourceImpact = gameObject.AddComponent<AudioSource>();
         audioSourceImpact.clip = soundOnImpact;
@@ -40,16 +37,16 @@ public class Bird : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
+    {
         if (!isAlive)
         {
             return;
         }
 
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && isAlive)
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)))
         {
-            audioSourceMouvment.Play();
-            this.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 5f);
+            audioSourceMovement.Play();
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 5f);
         }
 
         if (!IsRising())
@@ -83,19 +80,20 @@ public class Bird : MonoBehaviour
         }
     }
 
+    // Coroutine to load the menu scene
     public IEnumerator LoadMenuCoroutine()
     {
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("MainMenu");
-        while (!asyncload.isDone)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
+        while (!asyncLoad.isDone)
         {
             yield return null;
         }
     }
 
-    //obstacles pipes
+    // Handle collision with obstacle pipes
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle")
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
             audioSourceImpact.Play();
 
@@ -104,21 +102,19 @@ public class Bird : MonoBehaviour
             {
                 oS.isDead = true;
             }
-            this.GetComponent<Collider2D>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
 
-            TopScore();             
-            isAlive = false;           
+            TopScore();
+            isAlive = false;
             animator.SetTrigger("IsDead");
         }
-
     }
 
-    //obstacle screen limits
+    // Handle collision with screen limits (obstacles)
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle")
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
-
             oS.pipeSpeed = 0;
             if (!oS.isDead)
             {
@@ -126,7 +122,7 @@ public class Bird : MonoBehaviour
                 audioSourceImpact.Play();
             }
 
-            TopScore();            
+            TopScore();
             isAlive = false;
             animator.SetTrigger("IsDead");
         }
@@ -144,21 +140,22 @@ public class Bird : MonoBehaviour
         }
     }
 
+    // Update the top score if the current score is higher
     public void TopScore()
     {
         if (!isAlive) return;
         audioSourceDeath.Play();
+
         string path = Application.dataPath + "/StreamingAssets/TopScoreBird.txt";
         string fileContent = File.ReadAllText(path);
         int topScore = int.Parse(fileContent);
 
-        Debug.Log("Top score : " + topScore);
-        Debug.Log("OS score : " + oS.score);
+        Debug.Log("Top score: " + topScore);
+        Debug.Log("Current score: " + oS.score);
         if (oS.score > topScore)
         {
             string f = oS.score.ToString();
             File.WriteAllText(path, f);
         }
     }
-
 }

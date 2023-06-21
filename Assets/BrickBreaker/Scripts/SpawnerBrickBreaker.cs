@@ -4,29 +4,25 @@ using UnityEngine.SceneManagement;
 
 public class SpawnerBrickBreaker : MonoBehaviour
 {
-    //---------------------------------------------------------------------------------
-    // ATTRIBUTES
-    //---------------------------------------------------------------------------------
     [SerializeField] GameObject brick;
     [SerializeField] GameObject brickG;
     [SerializeField] GameObject controls;
 
     public Ball ball;
+
     public int lineNumber = 1;
+    public int createdBricks = 0;
 
     private float brickWidth = 1.76f;
     private float brickHeight = 0.92f;
     private float playableWidth = 11f;
-    private int playableColumns = 7;
-    public int createdBricks = 0;
     private float probaBricks = 0.6f;
     private float timeRemaining = 20;
+
+    private int playableColumns = 7;
+
     private bool isDestroyed = false;
 
-    //---------------------------------------------------------------------------------
-    // METHODS
-    //---------------------------------------------------------------------------------
-    // Start is called before the first frame update
     void Start()
     {
         spawnGrid();

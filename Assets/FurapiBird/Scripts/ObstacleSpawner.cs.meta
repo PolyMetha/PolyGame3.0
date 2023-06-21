@@ -3,7 +3,11 @@ guid: 23646f39557202444acdc34d55ab675b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - scoreText: {instanceID: 0}
+  - commandsText: {instanceID: 0}
+  - pipe: {fileID: 1184837501318935835, guid: aa9f2bc9056a9a44a8f9bb32cba40fa3, type: 3}
+  - bird: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

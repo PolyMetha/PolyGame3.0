@@ -1531,13 +1531,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80bf5e3979c965848a828fb6ede54dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ref_audioClip: {fileID: 8300000, guid: eec2f946b79d0d744bcb1e5a1a1a609f, type: 3}
-  fader_renderer: {fileID: 1348437038}
-  apple_pf: {fileID: 8265748642164218851, guid: 532857f07a2d87d47ac7144521d5c65d, type: 3}
-  banana_pf: {fileID: 6076781227970490594, guid: 93e8aa6507959364c8f5c8e2d19fbc80, type: 3}
-  rottenApple_pf: {fileID: 1576308458038899845, guid: 3a514558d4ab4a1438b1cbefda3f122e, type: 3}
-  goldenApple_pf: {fileID: 2843200809450976186, guid: 58302e27e9486da4d957c671accbef49, type: 3}
-  bomb_pf: {fileID: 8823402156218285546, guid: 3715458a3dbb8ad4aa10e1a941a6650b, type: 3}
+  refAudioClip: {fileID: 8300000, guid: eec2f946b79d0d744bcb1e5a1a1a609f, type: 3}
+  faderRenderer: {fileID: 1348437038}
+  applePF: {fileID: 8265748642164218851, guid: 532857f07a2d87d47ac7144521d5c65d, type: 3}
+  bananaPF: {fileID: 6076781227970490594, guid: 93e8aa6507959364c8f5c8e2d19fbc80, type: 3}
+  rottenApplePF: {fileID: 1576308458038899845, guid: 3a514558d4ab4a1438b1cbefda3f122e, type: 3}
+  goldenApplePF: {fileID: 2843200809450976186, guid: 58302e27e9486da4d957c671accbef49, type: 3}
+  bombPF: {fileID: 8823402156218285546, guid: 3715458a3dbb8ad4aa10e1a941a6650b, type: 3}
   gameMaster: {fileID: 799439877}
 --- !u!4 &1312995413
 Transform:
@@ -2142,7 +2142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fe77f5e1d018b4c82af87c8899526d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayed_text: {fileID: 1886464970}
+  displayedText: {fileID: 1886464970}
   gameMaster: {fileID: 799439877}
   gameOverUI: {fileID: 2049373474}
   score: 0

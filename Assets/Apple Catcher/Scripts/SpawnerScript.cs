@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class SpawnerScript : MonoBehaviour
 {
-    //---------------------------------------------------------------------------------
-    // ATTRIBUTES
-    //---------------------------------------------------------------------------------
     public AudioClip refAudioClip; // Reference to the audio clip
+
     public SpriteRenderer faderRenderer; // Reference to the sprite renderer for fading out effect
+
     public GameObject applePF; // Prefab for spawning an apple
     public GameObject bananaPF; // Prefab for spawning a banana
     public GameObject rottenApplePF; // Prefab for spawning a rotten apple
@@ -17,15 +16,12 @@ public class SpawnerScript : MonoBehaviour
     public GameMaster gameMaster; // Reference to the GameMaster script
 
     protected float spawnTime = 3f; // Time between object spawns
-    protected AudioSource refAudioSource; // Reference to the AudioSource component
     protected float currentAlpha = 1; // Current alpha value for fading out effect
+
+    protected AudioSource refAudioSource; // Reference to the AudioSource component
 
     private Vector2 screenBounds;
 
-    //---------------------------------------------------------------------------------
-    // METHODS
-    //---------------------------------------------------------------------------------
-    // Start is called before the first frame update
     void Start()
     {
         refAudioSource = gameObject.AddComponent<AudioSource>(); // Add an AudioSource component
@@ -34,7 +30,6 @@ public class SpawnerScript : MonoBehaviour
         refAudioSource.clip = refAudioClip; // Set the audio clip
 
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-
 
         StartCoroutine(FadeOutFromWhite()); // Start the coroutine for fading out from white
     }
@@ -103,6 +98,5 @@ public class SpawnerScript : MonoBehaviour
         }
 
         Destroy(faderRenderer.gameObject); // Destroy the fader object
-
     }
 }
