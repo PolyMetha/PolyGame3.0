@@ -40,6 +40,6 @@ In the main menu, you have two possibilities : you can either click on the games
 
 ## :pushpin: Notes
 
-At any moment, in every games, you can press Escape to return to the main menu. There is on each game a gameover screen and a home screen for each game before playing it. There is a .exe file in the Build folder which allows you to play without having to start Unity Editor :white_check_mark:
+At any moment, in every games, you can press Escape to return to the main menu. There is on each game a gameover screen and a home screen for each game before playing it :white_check_mark:
 
 Enjoy ! :wink:
