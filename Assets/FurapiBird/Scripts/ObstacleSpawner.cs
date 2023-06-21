@@ -9,7 +9,8 @@ public class ObstacleSpawner : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] GameObject pipe;
-    private float timer = 1f;
+    private float timerObstacles = 1f;
+    private float timerDeathSound =3f;
     private float timerSpeed = 30f;
     public float pipeSpeed = 4f;
     public TextMeshProUGUI scoreText;
@@ -31,19 +32,19 @@ public class ObstacleSpawner : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        timer -= Time.deltaTime;
+        timerObstacles -= Time.deltaTime;
         timerSpeed -= Time.deltaTime;   
 
         float ypos = Random.Range(-3, 3) + 0.5f;
 
-        if(timer <= 0f)
+        if(timerObstacles <= 0f)
         {
             GameObject newPipe = Instantiate(pipe);
             
             newPipe.GetComponent<PipeObstacle_Script>().scriptSpawner = this;
             newPipe.transform.position = new Vector3(10f, ypos, 0f);
             newPipe.GetComponent<PipeObstacle_Script>().sC.oS = this;
-            timer = (Random.value + 1.5f) * 1.1f * 4f/pipeSpeed;
+            timerObstacles = (Random.value + 1.5f) * 1.1f * 4f/pipeSpeed;
         }
 
         if(timerSpeed < 0f)
@@ -56,8 +57,13 @@ public class ObstacleSpawner : MonoBehaviour
 
         if (!b.isAlive)
         {
-            commandsText.SetActive(true);
-            music.Pause();
+            timerDeathSound -= Time.deltaTime;                
+            music.Stop();
+            if (timerDeathSound < 0)
+            {
+                commandsText.SetActive(true);
+
+            }
         }
 
         if (isDead && deadCoroutineStarted == false)

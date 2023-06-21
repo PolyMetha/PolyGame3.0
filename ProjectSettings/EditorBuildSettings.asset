@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AppleCatcher.unity
     guid: 2fba045d8162d4af3b585f26ee7f333c
+  - enabled: 1
+    path: Assets/Scenes/BrickBreakerLoad.unity
+    guid: ebb8b26a1ba0a9e4b95cf097fdd69a4b
   m_configObjects: {}

@@ -70,7 +70,7 @@ public class ScenesLoader : MonoBehaviour
         audioSourceBackground.Stop();
         audioSourceSelectedGame.Play();
         yield return new WaitForSeconds(1.5f);
-        AsyncOperation asyncload = SceneManager.LoadSceneAsync("BrickBreaker");
+        AsyncOperation asyncload = SceneManager.LoadSceneAsync("BrickBreakerLoad");
         while (!asyncload.isDone)
         {
             yield return null;

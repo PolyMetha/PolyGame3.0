@@ -18,6 +18,8 @@ public class Bird : MonoBehaviour
     [SerializeField] AudioClip soundOnMouvment;
     AudioSource audioSourceImpact;
     [SerializeField] AudioClip soundOnImpact;
+    AudioSource audioSourceDeath;
+    [SerializeField] AudioClip soundOnDeath;
 
     void Start()
     {
@@ -30,6 +32,10 @@ public class Bird : MonoBehaviour
         audioSourceImpact = gameObject.AddComponent<AudioSource>();
         audioSourceImpact.clip = soundOnImpact;
         audioSourceImpact.playOnAwake = false;
+
+        audioSourceDeath = gameObject.AddComponent<AudioSource>();
+        audioSourceDeath.clip = soundOnDeath;
+        audioSourceDeath.playOnAwake = false;
     }
 
     // Update is called once per frame
@@ -138,6 +144,7 @@ public class Bird : MonoBehaviour
 
     public void TopScore()
     {
+        audioSourceDeath.Play();
         string path = Application.dataPath + "/StreamingAssets/TopScoreBird.txt";
         string fileContent = File.ReadAllText(path);
         int topScore = int.Parse(fileContent);

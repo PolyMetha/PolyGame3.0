@@ -7,7 +7,7 @@ using TMPro;
 public class GameLoad : MonoBehaviour
 {
     private string path;
-    public TextMeshPro topScoreText;
+    public TextMeshProUGUI topScoreText;
     public GameObject bird;
 
     // Start is called before the first frame update
