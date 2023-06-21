@@ -7,7 +7,18 @@ public class Ball : MonoBehaviour
     public bool isSpawning = true; // Flag indicating if the ball is spawning
     public int score; // Current score
     public int coinHit = 0; // Counter for coins hit
+    private const int ballSpeedLimit = 13;
 
+    private int life = 3; // Current number of lives
+    private int topScore; // Top score
+
+    private float timer = 2f; // Timer for ball respawn
+    private float ballVelocity; // Velocity of the ball
+    private string path; // File path for storing top score
+    private bool gameOverSound = false; // Flag indicating if game over sound has played
+    private Vector2 initPos; // Initial position of the ball
+
+    private Rigidbody2D rb; // Rigidbody2D component of the ball
     public TextMeshProUGUI textTopScore; // Reference to the TextMeshProUGUI component for top score display
     public SpawnerBrickBreaker spawn; // Reference to the SpawnerBrickBreaker component for spawning bricks
     public GameObject ballPF; // Prefab of the ball game object
@@ -28,19 +39,6 @@ public class Ball : MonoBehaviour
     public AudioSource audioSourceEnd; // AudioSource for game over sound
     [SerializeField] AudioClip soundOnEnd; // Sound clip for game over sound
 
-    private int life = 3; // Current number of lives
-    private int topScore; // Top score
-
-    private float timer = 2f; // Timer for ball respawn
-    private float ballVelocity; // Velocity of the ball
-
-    private string path; // File path for storing top score
-
-    private bool gameOverSound = false; // Flag indicating if game over sound has played
-
-    private Vector2 initPos; // Initial position of the ball
-
-    private Rigidbody2D rb; // Rigidbody2D component of the ball
 
     void Start()
     {
@@ -165,7 +163,11 @@ public class Ball : MonoBehaviour
 
             // Set the velocity of the ball after respawning
             rb.velocity = new Vector3(0f, -8f - spawn.lineNumber, 0f);
-            ballVelocity = rb.velocity.magnitude;
+            // Update ball speed if it is below the limit of speed
+            if(ballVelocity < ballSpeedLimit)
+            {
+                ballVelocity = rb.velocity.magnitude;
+            }            
         }
     }
 

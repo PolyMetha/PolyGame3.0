@@ -150,8 +150,6 @@ public class Bird : MonoBehaviour
         string fileContent = File.ReadAllText(path);
         int topScore = int.Parse(fileContent);
 
-        Debug.Log("Top score: " + topScore);
-        Debug.Log("Current score: " + oS.score);
         if (oS.score > topScore)
         {
             string f = oS.score.ToString();

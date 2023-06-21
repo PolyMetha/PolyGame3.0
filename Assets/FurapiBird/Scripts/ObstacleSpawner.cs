@@ -87,12 +87,10 @@ public class ObstacleSpawner : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             StartCoroutine(loadMenu()); // Load the menu scene
-            Debug.Log("Menu");
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(loadGame()); // Restart the game
-            Debug.Log("Restart");
         }
     }
 

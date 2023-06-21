@@ -40,7 +40,7 @@ public class SpawnerBrickBreaker : MonoBehaviour
         }
 
         // Check if the score reached a certain threshold to add life, increase line number, spawn a new grid, and respawn the ball
-        if (ball.score >= createdBricks * 50 + ball.coinHit * 100)
+        if (ball.score >= createdBricks * 50 + ball.coinHit * 200)
         {
             ball.AddLife();
             lineNumber += 2;
@@ -67,7 +67,6 @@ public class SpawnerBrickBreaker : MonoBehaviour
 
     public void spawnGrid()
     {
-        Debug.Log("grid");
         // Calculate the scale and position for grid spawning
         float L_B = playableWidth / (playableColumns * 2);
         float R = 1.8f;
