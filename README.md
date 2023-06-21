@@ -2,7 +2,7 @@
 # LP2B Project : multi games in Unity
 
 For the P23 semester at UTBM, we had to create a multi-game program with Unity through the LP2B courses :space_invader:
-By Paul CLEMENT and Andréa REINICHE.
+By Paul CLEMENT and Andréa REINICHE. To see how much work was done, here is the notion page of the project with all features that are implemented (mandatories and optionables ones) : https://paulcmt.notion.site/Project-PolyGame-5cd35f030c104c1988b8ce9a677c1bc0?pvs=4
 
 ## Games availables
 
