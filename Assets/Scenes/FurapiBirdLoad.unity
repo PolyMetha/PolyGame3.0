@@ -508,7 +508,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707159486}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bf7d144234794bd46b5592540f66ca31, type: 3}
@@ -632,6 +632,8 @@ MonoBehaviour:
   isAlive: 1
   oS: {fileID: 0}
   topScore: 0
+  soundOnMouvment: {fileID: 8300000, guid: bf7d144234794bd46b5592540f66ca31, type: 3}
+  soundOnImpact: {fileID: 8300000, guid: fd1cb69a7eab4b44486df0dc1926cbc0, type: 3}
 --- !u!60 &707159491
 PolygonCollider2D:
   m_ObjectHideFlags: 0

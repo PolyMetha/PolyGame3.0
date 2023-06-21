@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Mountains : MonoBehaviour
 {
-
     [SerializeField] ObstacleSpawner oS;
 
     // Update is called once per frame
@@ -18,7 +17,5 @@ public class Mountains : MonoBehaviour
         {
             this.transform.Translate(-oS.pipeSpeed* Time.deltaTime / 4, 0f, 0f);
         }
-            
-        
     }
 }

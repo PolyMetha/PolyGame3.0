@@ -38,7 +38,6 @@ public class ObstacleSpawner : MonoBehaviour
 
         if(timer <= 0f)
         {
-            
             GameObject newPipe = Instantiate(pipe);
             
             newPipe.GetComponent<PipeObstacle_Script>().scriptSpawner = this;
@@ -53,13 +52,12 @@ public class ObstacleSpawner : MonoBehaviour
             timerSpeed = 30f;
         }
 
-        
         scoreText.SetText("Score : " + score);
+
         if (!b.isAlive)
         {
             commandsText.SetActive(true);
             music.Pause();
-
         }
 
         if (isDead && deadCoroutineStarted == false)
@@ -71,7 +69,6 @@ public class ObstacleSpawner : MonoBehaviour
 
     public IEnumerator WhenDead()
     {
-
         while (!Input.GetKeyDown(KeyCode.M) && !Input.GetKeyDown(KeyCode.R))
         {
             yield return null;
@@ -91,7 +88,6 @@ public class ObstacleSpawner : MonoBehaviour
             Debug.Log("Restart");
 
         }
-
     }
 
     IEnumerator loadGame()

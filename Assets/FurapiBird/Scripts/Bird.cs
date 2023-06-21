@@ -12,13 +12,24 @@ public class Bird : MonoBehaviour
     public bool isAlive = true;
     private Animator animator;
     public ObstacleSpawner oS;
-    private AudioSource audiosource;
     public int topScore;
-    
+
+    AudioSource audioSourceMouvment;
+    [SerializeField] AudioClip soundOnMouvment;
+    AudioSource audioSourceImpact;
+    [SerializeField] AudioClip soundOnImpact;
+
     void Start()
     {
         animator = this.GetComponent<Animator>();
-        audiosource = this.GetComponent<AudioSource>();
+
+        audioSourceMouvment = gameObject.AddComponent<AudioSource>();
+        audioSourceMouvment.clip = soundOnMouvment;
+        audioSourceMouvment.playOnAwake = false;
+
+        audioSourceImpact = gameObject.AddComponent<AudioSource>();
+        audioSourceImpact.clip = soundOnImpact;
+        audioSourceImpact.playOnAwake = false;
     }
 
     // Update is called once per frame
@@ -31,8 +42,8 @@ public class Bird : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && isAlive)
         {
+            audioSourceMouvment.Play();
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 5f);
-            audiosource.Play();
         }
 
         if (!IsRising())
@@ -61,6 +72,7 @@ public class Bird : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Destroy(gameObject);
             StartCoroutine(LoadMenuCoroutine()); // Quit the application when the escape key is pressed
         }
     }
@@ -79,7 +91,7 @@ public class Bird : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            audiosource.Play(); 
+            audioSourceImpact.Play();
             isAlive = false;
             oS.pipeSpeed = 0;
             if (!oS.isDead)
@@ -99,15 +111,16 @@ public class Bird : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            audiosource.Play();
             isAlive = false;
             oS.pipeSpeed = 0;
             if (!oS.isDead)
             {
                 oS.isDead = true;
+                audioSourceImpact.Play();
             }
 
-            TopScore();            
+            TopScore();
+            animator.SetTrigger("IsDead");
         }
     }
 
